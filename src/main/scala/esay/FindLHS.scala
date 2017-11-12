@@ -18,7 +18,6 @@ object FindLHS {
     if(values2Count.isEmpty) 0
     else values2Count.maxBy(_._2)._2
 
-
   }
 
 

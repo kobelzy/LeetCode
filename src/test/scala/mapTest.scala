@@ -3,7 +3,11 @@
   */
 object mapTest {
   def main(args: Array[String]): Unit = {
-    val map=Map[Int,Int](1->2,2->3)
-    print(map.contains(3))
+    val map=scala.collection.mutable.Map[Int,Int]()
+    map(1)=1
+    map(2)=2
+    map(1)=2
+    print(map)
+
   }
 }

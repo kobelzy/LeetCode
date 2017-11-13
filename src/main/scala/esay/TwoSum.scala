@@ -3,7 +3,7 @@ import scala.util.control._
 /**
   * Created by Administrator on 2017/11/9.
   */
-object TwoSum {
+object No1_TwoSum {
   val loop=new Breaks
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
     val map=scala.collection.mutable.Map[Int,Int]()

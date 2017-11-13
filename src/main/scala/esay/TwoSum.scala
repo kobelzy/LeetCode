@@ -21,6 +21,8 @@ object No1_TwoSum {
         loop.break()
       }
     }}
+
+
     result.toArray
   }
 

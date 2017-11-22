@@ -5,6 +5,7 @@ import scala.collection.mutable
 /**
   * Created by taihe on 2017/11/21.
   * 本题的思路是遍历数据，用每个数据与其之前的进行比对，
+  * 如果发现当前数据小于之前的，那么就优先修改上一个数据等于上上个，如果修改完的依然不行，那么就修改当前数据与之后的数据相同
   *
   */
 object No665_CheckPossibility {

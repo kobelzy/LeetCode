@@ -4,6 +4,8 @@ import scala.collection.mutable
 
 /**
   * Created by taihe on 2017/11/21.
+  * 本题的思路是遍历数据，用每个数据与其之前的进行比对，
+  *
   */
 object No665_CheckPossibility {
 def checkPossibility(nums: Array[Int]): Boolean = {

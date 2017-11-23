@@ -3,7 +3,7 @@ package esay
 /**
   * Created by Administrator on 2017/11/23.
   */
-object IsValid {
+object No20_IsValid {
 //'(', ')', '{', '}', '[',']'
 
   def isValid(s: String): Boolean = {

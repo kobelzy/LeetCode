@@ -17,6 +17,7 @@ object No20_IsValid {
       } else if (symbols.values.toSet.contains(symbol)) {
         if (list.nonEmpty && symbols(list.last) == symbol) {
           list.remove(list.size - 1)
+//          list-= list.last //如果有相同的符号，那么会从第一个开始删，而不是最后一个，会发生错误、
         } else {
           flag = false
         }
@@ -27,6 +28,6 @@ object No20_IsValid {
   }
 
   def main(args: Array[String]): Unit = {
-    println(isValid("{}"))
+    println(isValid("[([]])"))
   }
 }

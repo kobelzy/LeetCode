@@ -5,7 +5,7 @@ package esay
   */
 object RemoveDuplicates {
 def removeDuplicates(nums:Array[Int]):Int={
-  val buffer=nums.toBuffer
+  var buffer=nums.toBuffer
   if(nums.isEmpty) return 0
   var j=0
   for(i<-nums.indices) {
@@ -14,8 +14,7 @@ def removeDuplicates(nums:Array[Int]):Int={
     buffer(j)=buffer(i)
   }
   }
-  println(buffer.sliding(0,j))
-  println(buffer)
+buffer=buffer.splitAt(j)._1
   j +1
 }
 

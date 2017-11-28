@@ -7,21 +7,23 @@ object No28_strStr {
   def strStr(haystack: String, needle: String): Int = {
   var flag= -1
     if(haystack.isEmpty&&needle.isEmpty) return 0
-    else if(haystack.isEmpty||needle.isEmpty) return flag
+    else if(haystack.isEmpty&&needle.nonEmpty) return flag
+    else if(haystack.nonEmpty&&needle.isEmpty) return 0
+
     for(i<-0 to haystack.size-needle.length){
     if(haystack(i)==needle(0)){
-      var j=1
+      var j=0
       while(j<needle.length&&needle(j)==haystack(j+i)){
         j+=1
       }
-      if(j==needle.length) flag=j
-      return flag
+      if(j==needle.length){ flag=i; return flag}
+
     }
     }
     flag
   }
 
   def main(args: Array[String]): Unit = {
-println(strStr("",""))
+println(strStr("aaa","a"))
   }
 }

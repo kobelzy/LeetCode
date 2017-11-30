@@ -29,6 +29,6 @@ loop.breakable {
   }
 
   def main(args: Array[String]): Unit = {
-    println(maxSubArray(Array(-2,1,-3,4,-1,2,1,-5,4)))
+    println(maxSubArray(Array(1,-2)))
   }
 }

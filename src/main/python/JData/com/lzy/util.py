@@ -121,6 +121,7 @@ def feat_count(df, df_feature, fe, value, name=""):
 
 
 def feat_nunique(df, df_feature, fe, value, name=""):
+    #将df_deature中按照fe进行分组，新增一个value字段，将其中的所以分组对应的数量拿出来，相当于groupBy之后，选择组，产生（key，count的结果。）
     df_count = pd.DataFrame(df_feature.groupby(fe)[value].nunique()).reset_index()
     if not name:
         df_count.columns = fe + [value + "_%s_nunique" % ("_".join(fe))]

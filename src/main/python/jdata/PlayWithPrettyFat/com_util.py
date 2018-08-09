@@ -1,41 +1,8 @@
 #encoding=utf8
 import pandas as pd
+import numpy as np
+from datetime import datetime
 from sklearn import preprocessing
-
-def load_data():
-    sku_info = pd.read_csv(r'../data/jdata_sku_basic_info.csv')
-    user_action = pd.read_csv(r'../data/jdata_user_action.csv')
-    user_info = pd.read_csv(r'../data/jdata_user_basic_info.csv')
-    user_comment = pd.read_csv(r'../data/jdata_user_comment_score.csv')
-    user_order = pd.read_csv(r'../data/jdata_user_order.csv')
-    
-    user_action['a_date'] = pd.to_datetime(user_action['a_date'])
-    user_order['o_date'] = pd.to_datetime(user_order['o_date'])
-    user_comment['c_date'] = pd.to_datetime(user_comment['comment_create_tm'])
-    user_comment = user_comment.drop('comment_create_tm',axis=1)
-    
-    user_action['a_year'] = user_action['a_date'].dt.year
-    user_action['a_month'] = user_action['a_date'].dt.month
-    user_action['a_day'] = user_action['a_date'].dt.day
-    
-    user_order['o_year'] = user_order['o_date'].dt.year
-    user_order['o_month'] = user_order['o_date'].dt.month
-    user_order['o_day'] = user_order['o_date'].dt.day
-    
-    user_comment['c_year'] = user_comment['c_date'].dt.year
-    user_comment['c_month'] = user_comment['c_date'].dt.month
-    user_comment['c_day'] = user_comment['c_date'].dt.day
-    
-    #把user_order,user_comment,sku_info,user_info连接在一起组成order_comment表
-    order = user_order.merge(sku_info,on='sku_id',how='left')
-    order = order.merge(user_info,on='user_id',how='left')
-    order = order.merge(user_comment,on=['user_id','o_id'],how='left')
-    
-    #把user_action,user_info,sku_info连接在一起组成user_action表
-    action = user_action.merge(sku_info,on='sku_id',how='left')
-    action = action.merge(user_info,on='user_id',how='left')
-
-    return order,action
 
 def encode_onehot(df,column_name):
     feature_df=pd.get_dummies(df[column_name], prefix=column_name)
@@ -177,3 +144,16 @@ def feat_var(df, df_feature, fe,value,name=""):
         df_count.columns = fe + [name]
     df = df.merge(df_count, on=fe, how="left").fillna(0)
     return df
+
+
+if __name__=="__main__":
+    trn_df = pd.read_csv("../input/train.csv", index_col=0)
+    sub_df = pd.read_csv("../input/test.csv", index_col=0)
+
+    # Target encode ps_car_11_cat
+    trn, sub = target_encode(trn_df["ps_car_11_cat"],
+                             sub_df["ps_car_11_cat"],
+                             target=trn_df.target,
+                             min_samples_leaf=100,
+                             smoothing=10,
+                             noise_level=0.01)

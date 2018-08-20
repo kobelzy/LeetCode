@@ -12,10 +12,6 @@ object No53_MaxSubArray {
       val map=scala.collection.mutable.Map[Int,Array[Int]]()
 
   for (len <- 1 to nums.length) {
-//    if (len*len == nums.length) {
-//      map(nums.sum) = nums
-//      loop.break()
-//    }
     for (i <- 0 to nums.length - len) {
       val buffer = scala.collection.mutable.ArrayBuffer[Int]()
       for (j <- i until i + len ) {

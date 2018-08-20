@@ -9,6 +9,7 @@ object No53_LengthOfLastWord {
        s.split(' ') match {
         case Array() =>0
         case strs:Array[String]=>strs.last.length
+
       }
   }
 

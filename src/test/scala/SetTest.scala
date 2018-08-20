@@ -12,5 +12,6 @@ object SetTest {
     arrs-=arrs.last
     arrs-=arrs.last
     println(arrs)
+    println(" ".split(' ').length)
   }
 }

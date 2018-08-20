@@ -1,4 +1,4 @@
-package esay
+package easy
 import scala.util.control._
 /**
   * Created by taihe on 2017/11/30.

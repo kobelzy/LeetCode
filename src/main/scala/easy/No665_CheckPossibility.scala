@@ -1,4 +1,4 @@
-package esay
+package easy
 
 import scala.collection.mutable
 

@@ -1,4 +1,4 @@
-package esay
+package easy
 
 /**
   * Created by taihe on 2017/12/4.

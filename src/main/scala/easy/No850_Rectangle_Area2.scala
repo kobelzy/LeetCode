@@ -46,7 +46,8 @@ object No850_Rectangle_Area2 {
     val all:Iterator[Int]=y_arr.sliding(2,1).map(slid=>{
       val y_min=slid.head
       val y_max=slid.last
-      val x_sum=rectangles.filter(arr=>arr(1)<=y_min&&arr(3)>=y_max).map(arr=>arr(2)-arr(0)).sum
+      val x_sum=rectangles.filter(arr=>arr(1)<=y_min&&arr(3)>=y_max).map(arr=>(arr(0) to arr(2)).toArray)
+        .reduce((a,b)=>a.intersect(b)).length
       val y_sum=y_max-y_min
       println("y_sum:"+y_sum)
       println("x_sum:"+x_sum)

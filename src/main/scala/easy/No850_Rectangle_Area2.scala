@@ -41,25 +41,19 @@ object No850_Rectangle_Area2 {
   def rectangleArea2(rectangles: Array[Array[Int]]): Int = {
 
     var distinceCellNums = 0
-    var is_max = false
-    for (i <- rectangles.indices) {
-      for (j <- rectangles(i).indices) {
-        if (rectangles(i)(j) >= math.pow(10, 9)) is_max = true
-      }
-    }
-    if (!is_max) {
+
+    val max=math.pow(10, 9)
+    val is_not_rather_max=rectangles.forall(_.forall(_<max))
+    if (is_not_rather_max) {
       val y_arr: Array[Int] = rectangles.flatMap(arr => Array(arr(1), arr(3)))
         .distinct
         .sorted
-      y_arr.sliding(2, 1).foreach(arr => println(arr.mkString(",")))
       val all: Iterator[Int] = y_arr.sliding(2, 1).map(slid => {
         val y_min = slid.head
         val y_max = slid.last
         val x_sum = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(arr => (arr(0) to arr(2)).toArray)
           .reduce((a, b) => a.intersect(b)).length
         val y_sum = y_max - y_min
-        println("y_sum:" + y_sum)
-        println("x_sum:" + x_sum)
         x_sum * y_sum
       })
 
@@ -76,15 +70,15 @@ object No850_Rectangle_Area2 {
     val result = rectangleArea2(arr)
     println(result)
 
-    val set = scala.collection.mutable.Set[(Int, Int)]()
-    val set2 = scala.collection.mutable.Set[(Int, Int)]()
-    set.add((1, 1))
-    set.add((1, 2))
-    set.add((1, 1))
-    set2.add((1, 1))
-    println(set.mkString("|"))
-    println(set2.mkString("|"))
-    println((set2 ++ set).mkString("|"))
+//    val set = scala.collection.mutable.Set[(Int, Int)]()
+//    val set2 = scala.collection.mutable.Set[(Int, Int)]()
+//    set.add((1, 1))
+//    set.add((1, 2))
+//    set.add((1, 1))
+//    set2.add((1, 1))
+//    println(set.mkString("|"))
+//    println(set2.mkString("|"))
+//    println((set2 ++ set).mkString("|"))
   }
 
 }

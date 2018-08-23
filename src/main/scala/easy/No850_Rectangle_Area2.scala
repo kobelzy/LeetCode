@@ -66,8 +66,12 @@ object No850_Rectangle_Area2 {
 //  0,2,0,3,0,1    0,1,2,3
 
   def isTuple2HasEqueals(t1:(Int,Int),t2:(Int,Int))={
-    if(t1._1>t2._1) {if(t1._1<t2._2&& t1._2>t2._2) (t1._1,t2._2) else if(t1._2<t2._2)(t1._1,t1._2)}
-    else if(t1._1<t2._1){if(t1._2<t2._2 && t1._2>t2._1) (t2._1,t1._2)else if(t1._2>t2._2) (t2._1,t2._2) }
+    //     t11-------t12    或者   t11------------t12
+    //  t21------t22            t21------------------t22
+    if(t1._1>=t2._1) {if(t1._1<=t2._2&& t1._2>=t2._2) (t1._1,t2._2) else if(t1._2<t2._2)(t1._1,t1._2)}
+    //     t11-------t21    或者   t11------------t12
+    //         t21------t22            t21----t22
+    else if(t1._1<t2._1){if(t1._2<=t2._2 && t1._2>=t2._1) (t2._1,t1._2)else if(t1._2>t2._2) (t2._1,t2._2) }
 
 
   }
@@ -85,6 +89,7 @@ object No850_Rectangle_Area2 {
 //    println(set.mkString("|"))
 //    println(set2.mkString("|"))
 //    println((set2 ++ set).mkString("|"))
+
   }
 
 }

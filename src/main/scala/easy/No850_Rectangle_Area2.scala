@@ -51,8 +51,8 @@ object No850_Rectangle_Area2 {
       val all: Iterator[Int] = y_arr.sliding(2, 1).map(slid => {
         val y_min = slid.head
         val y_max = slid.last
-        val x_sum = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(arr => (arr(0) to arr(2)).toArray)
-          .reduce((a, b) => a.intersect(b)).length
+        val x_sum = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x=>(x(0),x(2)))
+          .reduce((x1,x2)=>isTuple2HasEqueals(x1,x2))
         val y_sum = y_max - y_min
         x_sum * y_sum
       })
@@ -65,14 +65,17 @@ object No850_Rectangle_Area2 {
   }
 //  0,2,0,3,0,1    0,1,2,3
 
-  def isTuple2HasEqueals(t1:(Int,Int),t2:(Int,Int))={
+  def isTuple2HasEqueals(t1:(Int,Int),t2:(Int,Int)):(Int, Int)={
     //     t11-------t12    或者   t11------------t12
     //  t21------t22            t21------------------t22
-    if(t1._1>=t2._1) {if(t1._1<=t2._2&& t1._2>=t2._2) (t1._1,t2._2) else if(t1._2<t2._2)(t1._1,t1._2)}
+    if(t1._1>=t2._1) {
+      if(t1._1<=t2._2&& t1._2>=t2._2){ Tuple2(t1._1,t2._2)}
+      else if(t1._2<t2._2) {Tuple2(t1._1,t1._2)}
+        }
     //     t11-------t21    或者   t11------------t12
     //         t21------t22            t21----t22
-    else if(t1._1<t2._1){if(t1._2<=t2._2 && t1._2>=t2._1) (t2._1,t1._2)else if(t1._2>t2._2) (t2._1,t2._2) }
-
+    else if(t1._1<t2._1){if(t1._2<=t2._2 && t1._2>=t2._1) (t2._1,t1._2) else if(t1._2>t2._2) (t2._1,t2._2) }
+    else (0,-1)
 
   }
     def main(args: Array[String]): Unit = {

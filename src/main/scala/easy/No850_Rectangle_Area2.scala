@@ -51,8 +51,16 @@ object No850_Rectangle_Area2 {
       val all: Iterator[Int] = y_arr.sliding(2, 1).map(slid => {
         val y_min = slid.head
         val y_max = slid.last
-        val x_sum = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x=>(x(0),x(2)))
-          .reduce((x1,x2)=>isTuple2HasEqueals(x1,x2))
+        println(s"--y_start:$y_min y_end:$y_max --")
+        rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x=>(x(0),x(2)))
+          .combinations(2).foreach(arr=>println(arr.mkString("|")))
+        val x_sum:Int = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x=>(x(0),x(2)))
+              .combinations(2)
+          .map { case Array(x1, x2) => {
+            val xstart_xend = isTuple2HasEqueals(x1, x2)
+            xstart_xend._2 - xstart_xend._1 + 1
+          }
+          }.sum
         val y_sum = y_max - y_min
         x_sum * y_sum
       })
@@ -70,11 +78,17 @@ object No850_Rectangle_Area2 {
     //  t21------t22            t21------------------t22
     if(t1._1>=t2._1) {
       if(t1._1<=t2._2&& t1._2>=t2._2){ Tuple2(t1._1,t2._2)}
-      else if(t1._2<t2._2) {Tuple2(t1._1,t1._2)}
+      else if(t1._2<t2._2) (t1._1,t1._2)
+      else (0,-1)
+
         }
     //     t11-------t21    或者   t11------------t12
     //         t21------t22            t21----t22
-    else if(t1._1<t2._1){if(t1._2<=t2._2 && t1._2>=t2._1) (t2._1,t1._2) else if(t1._2>t2._2) (t2._1,t2._2) }
+    else if(t1._1<t2._1){
+      if(t1._2<=t2._2 && t1._2>=t2._1) (t2._1,t1._2)
+      else if(t1._2>t2._2) (t2._1,t2._2)
+      else (0,-1)
+    }
     else (0,-1)
 
   }

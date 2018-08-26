@@ -54,16 +54,17 @@ object No850_Rectangle_Area2 {
       val all: Iterator[Int] = y_arr.sliding(2, 1).map(slid => {
         val y_min = slid.head
         val y_max = slid.last
-        println(s"--y_start:$y_min y_end:$y_max --")
-        rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x => (x(0), x(2)))
-          .combinations(2).foreach(arr => println(arr.mkString("|")))
-        val x_sum: Int = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x => (x(0), x(2)))
-          .combinations(2)
-          .map { case Array(x1, x2) => {
-            val xstart_xend = isTuple2HasEqueals(x1, x2)
-            xstart_xend._2 - xstart_xend._1 + 1
-          }
-          }.sum
+//        println(s"--y_start:$y_min y_end:$y_max --")
+        val all_xTuple=rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x => (x(0), x(2)))
+        var distinct_XTuple=ListBuffer[(Int,Int)]()
+        distinct_XTuple+=all_xTuple.head
+        println(distinct_XTuple)
+        all_xTuple.foreach(x=>{
+          distinct_XTuple=updateRange(distinct_XTuple,x)
+        })
+        println(distinct_XTuple)
+
+        val x_sum=distinct_XTuple.map(x=>x._2-x._1).sum
         val y_sum = y_max - y_min
         x_sum * y_sum
       })
@@ -75,18 +76,24 @@ object No850_Rectangle_Area2 {
     distinceCellNums
   }
 
-def updateRange(arr:ListBuffer[(Int,Int)], newRange:(Int,Int))={
+def updateRange(arr:ListBuffer[(Int,Int)], newRange:(Int,Int)):ListBuffer[(Int, Int)]={
     val indexs=ListBuffer[(Int,Int)]()
   var result = ListBuffer[(Int, Int)]()
-  for(tuple<-arr)     if(concat(tuple, newRange)!=(0,0)) indexs:+tuple
-  if(indexs.isEmpty){arr:+ newRange}
+  for(tuple<-arr){
+    println("开头："+arr)
+    println("newRange:"+newRange)
+    if(concat(tuple, newRange)!=(0,0)){
+
+  indexs+=tuple
+//      println("符合不为0:("+tuple)
+
+  }}
+  if(indexs.isEmpty){arr+= newRange}
   else{
     result=arr.diff(indexs)
-    var last_tuple:(Int,Int)=newRange
-    result:+indexs.reduce(concat)
-
+    result+=indexs.reduce(concat)
   }
-
+  result
   }
 
 
@@ -97,8 +104,8 @@ def updateRange(arr:ListBuffer[(Int,Int)], newRange:(Int,Int))={
     //  t21------t22            t21------------------t22
 
     if (t1_start >= t2_start) {
-      if(t1_start>=t2_end&&t1_end>=t2_end)(t2_start,t1_end)
-      else if(t1_start>=t2_end&&t1_end<t2_end)(t2_start,t2_end)
+      if(t1_start<=t2_end&&t1_end>=t2_end)(t2_start,t1_end)
+      else if(t1_start<=t2_end&&t1_end<t2_end)(t2_start,t2_end)
       else (0,0)
 
     } else if (t1_start < t2_start) {

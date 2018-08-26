@@ -1,6 +1,6 @@
 package easy
 
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by Administrator on 2018/8/20.
@@ -54,17 +54,15 @@ object No850_Rectangle_Area2 {
       val all: Iterator[Int] = y_arr.sliding(2, 1).map(slid => {
         val y_min = slid.head
         val y_max = slid.last
-//        println(s"--y_start:$y_min y_end:$y_max --")
-        val all_xTuple=rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x => (x(0), x(2)))
-        var distinct_XTuple=ListBuffer[(Int,Int)]()
-        distinct_XTuple+=all_xTuple.head
-        println(distinct_XTuple)
-        all_xTuple.foreach(x=>{
-          distinct_XTuple=updateRange(distinct_XTuple,x)
+        //        println(s"--y_start:$y_min y_end:$y_max --")
+        val all_xTuple = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x => (x(0), x(2)))
+        var distinct_XTuple = ListBuffer[(Int, Int)]()
+        distinct_XTuple += all_xTuple.head
+        all_xTuple.tail.foreach(x => {
+          distinct_XTuple = updateRange(distinct_XTuple, x)
         })
-        println(distinct_XTuple)
 
-        val x_sum=distinct_XTuple.map(x=>x._2-x._1).sum
+        val x_sum = distinct_XTuple.map(x => x._2 - x._1).sum
         val y_sum = y_max - y_min
         x_sum * y_sum
       })
@@ -76,73 +74,52 @@ object No850_Rectangle_Area2 {
     distinceCellNums
   }
 
-def updateRange(arr:ListBuffer[(Int,Int)], newRange:(Int,Int)):ListBuffer[(Int, Int)]={
-    val indexs=ListBuffer[(Int,Int)]()
-  var result = ListBuffer[(Int, Int)]()
-  for(tuple<-arr){
-    println("开头："+arr)
-    println("newRange:"+newRange)
-    if(concat(tuple, newRange)!=(0,0)){
+  def updateRange(arr: ListBuffer[(Int, Int)], newRange: (Int, Int)): ListBuffer[(Int, Int)] = {
+    val indexs = ListBuffer[(Int, Int)]()
+    var result = ListBuffer[(Int, Int)]()
+    for (tuple <- arr) {
+      if (concat(tuple, newRange) != (0, 0)) {
 
-  indexs+=tuple
-//      println("符合不为0:("+tuple)
+        indexs += tuple
 
-  }}
-  if(indexs.isEmpty){arr+= newRange}
-  else{
-    result=arr.diff(indexs)
-    result+=indexs.reduce(concat)
+      }
+    }
+    if (indexs.isEmpty) {
+      arr += newRange
+    }
+    else {
+      result = arr.diff(indexs)
+      result += indexs.reduce(concat)
+    }
+    result
   }
-  result
-  }
 
 
-  def concat(t1: (Int, Int), t2: (Int, Int)):(Int,Int) = {
+  def concat(t1: (Int, Int), t2: (Int, Int)): (Int, Int) = {
     val (t1_start, t1_end) = t1
     val (t2_start, t2_end) = t2
     //     t11-------t12    或者   t11------------t12
     //  t21------t22            t21------------------t22
 
     if (t1_start >= t2_start) {
-      if(t1_start<=t2_end&&t1_end>=t2_end)(t2_start,t1_end)
-      else if(t1_start<=t2_end&&t1_end<t2_end)(t2_start,t2_end)
-      else (0,0)
+      if (t1_start <= t2_end && t1_end >= t2_end) (t2_start, t1_end)
+      else if (t1_start <= t2_end && t1_end < t2_end) (t2_start, t2_end)
+      else (0, 0)
 
     } else if (t1_start < t2_start) {
       //     t11-------t21    或者   t11------------t12
       //         t21------t22            t21----t22
-      if(t1_end>=t2_start&&t1_end<=t2_end)(t1_start,t2_end)
-      else if(t1_end>=t2_start&&t1_end>t2_end)(t1_start,t1_end)
-      else(0,0)
-    }else(0,0)
+      if (t1_end >= t2_start && t1_end <= t2_end) (t1_start, t2_end)
+      else if (t1_end >= t2_start && t1_end > t2_end) (t1_start, t1_end)
+      else (0, 0)
+    } else (0, 0)
 
 
   }
 
-  def isTuple2HasEqueals(t1: (Int, Int), t2: (Int, Int)): (Int, Int) = {
-    //     t11-------t12    或者   t11------------t12
-    //  t21------t22            t21------------------t22
-    if (t1._1 >= t2._1) {
-      if (t1._1 <= t2._2 && t1._2 >= t2._2) {
-        Tuple2(t1._1, t2._2)
-      }
-      else if (t1._2 < t2._2) (t1._1, t1._2)
-      else (0, -1)
-
-    }
-    //     t11-------t21    或者   t11------------t12
-    //         t21------t22            t21----t22
-    else if (t1._1 < t2._1) {
-      if (t1._2 <= t2._2 && t1._2 >= t2._1) (t2._1, t1._2)
-      else if (t1._2 > t2._2) (t2._1, t2._2)
-      else (0, -1)
-    }
-    else (0, -1)
-
-  }
 
   def main(args: Array[String]): Unit = {
-    val arr = Array(Array(0, 0, 2, 2), Array(1, 0, 2, 3), Array(1, 0, 3, 1))
+    val arr = Array(Array(0, 0, 1, 2), Array(1, 0, 2, 3), Array(1, 0, 3, 1))
     val result = rectangleArea2(arr)
     println(result)
 
@@ -156,6 +133,10 @@ def updateRange(arr:ListBuffer[(Int,Int)], newRange:(Int,Int)):ListBuffer[(Int, 
     //    println(set2.mkString("|"))
     //    println((set2 ++ set).mkString("|"))
 
+    //    val arr1=List((0,1),(1,2),(1,3),(3,5),(6,7))
+    //    val arr2=List((1,1),(4,4),(3,3))
+    //    println(arr1.diff(arr2))
+    //    println(arr1.reduce(concat))
   }
 
 }

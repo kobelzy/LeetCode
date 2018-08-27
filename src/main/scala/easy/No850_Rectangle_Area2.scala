@@ -58,6 +58,8 @@ object No850_Rectangle_Area2 {
         val y_max = slid.last
                 println(s"--y_start:$y_min y_end:$y_max --")
         val all_xTuple = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x => (x(0), x(2)))
+        println("->>>>>>>"+all_xTuple.toList)
+//        (24,56), (62,92), (38,92)
         var distinct_XTuple = ListBuffer[(Int, Int)]()
         distinct_XTuple += all_xTuple.head
         all_xTuple.tail.foreach(x => {

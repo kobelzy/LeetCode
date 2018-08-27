@@ -51,10 +51,12 @@ object No850_Rectangle_Area2 {
       val y_arr: Array[Int] = rectangles.flatMap(arr => Array(arr(1), arr(3)))
         .distinct
         .sorted
-      val all: Iterator[Int] = y_arr.sliding(2, 1).map(slid => {
+//[),[),
+      val ySlids=y_arr.sliding(2,1).filter(slid=>rectangles.filter(arr => arr(1) <= slid.head && arr(3) >= slid.last).map(x => (x(0), x(2))).nonEmpty)
+      val all: Iterator[Int] = ySlids.map(slid => {
         val y_min = slid.head
         val y_max = slid.last
-        //        println(s"--y_start:$y_min y_end:$y_max --")
+                println(s"--y_start:$y_min y_end:$y_max --")
         val all_xTuple = rectangles.filter(arr => arr(1) <= y_min && arr(3) >= y_max).map(x => (x(0), x(2)))
         var distinct_XTuple = ListBuffer[(Int, Int)]()
         distinct_XTuple += all_xTuple.head
@@ -64,6 +66,8 @@ object No850_Rectangle_Area2 {
 
         val x_sum = distinct_XTuple.map(x => x._2 - x._1).sum
         val y_sum = y_max - y_min
+        println(s"+++++++x_sum:$x_sum y_sum:$y_sum --")
+
         x_sum * y_sum
       })
 
@@ -77,19 +81,20 @@ object No850_Rectangle_Area2 {
   def updateRange(arr: ListBuffer[(Int, Int)], newRange: (Int, Int)): ListBuffer[(Int, Int)] = {
     val indexs = ListBuffer[(Int, Int)]()
     var result = ListBuffer[(Int, Int)]()
+    result+=newRange
     for (tuple <- arr) {
       if (concat(tuple, newRange) != (0, 0)) {
-
         indexs += tuple
 
       }
     }
-    if (indexs.isEmpty) {
-      arr += newRange
-    }
-    else {
+    if (indexs.nonEmpty) {
+
+      indexs += newRange
       result = arr.diff(indexs)
       result += indexs.reduce(concat)
+    }else{
+      result=result++arr
     }
     result
   }
@@ -119,7 +124,10 @@ object No850_Rectangle_Area2 {
 
 
   def main(args: Array[String]): Unit = {
-    val arr = Array(Array(0, 0, 1, 2), Array(1, 0, 2, 3), Array(1, 0, 3, 1))
+//    val arr = Array(Array(0, 0, 1, 1), Array(2, 2, 3, 3))
+//    val arr = Array(Array(0, 0, 1, 2), Array(1, 0, 2, 3), Array(1, 0, 3, 1))
+//    val arr = Array(Array(49,40,62,100), Array(11,83,31,99), Array(19,39,30,99)) //1584
+    val arr = Array(Array(24,40,56,75), Array(40,12,82,50), Array(62,44,92,67), Array(38,22,92,91)) //4636
     val result = rectangleArea2(arr)
     println(result)
 

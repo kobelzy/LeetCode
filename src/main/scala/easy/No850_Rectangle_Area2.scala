@@ -124,7 +124,11 @@ object No850_Rectangle_Area2 {
 
   }
 
+def testupdate()={
 
+
+
+}
   def main(args: Array[String]): Unit = {
 //    val arr = Array(Array(0, 0, 1, 1), Array(2, 2, 3, 3))
 //    val arr = Array(Array(0, 0, 1, 2), Array(1, 0, 2, 3), Array(1, 0, 3, 1))

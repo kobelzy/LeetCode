@@ -5,6 +5,7 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by Administrator on 2018/8/20.
   * 矩形面积2
+  * 最终失败了，太鸡巴难了，拜拜
   */
 object No850_Rectangle_Area2 {
   def rectangleArea(rectangles: Array[Array[Int]]): Long = {

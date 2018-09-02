@@ -80,6 +80,7 @@ object No850_Rectangle_Area2 {
     distinceCellNums
   }
 
+
   def updateRange(arr: ListBuffer[(Int, Int)], newRange: (Int, Int)): ListBuffer[(Int, Int)] = {
     val indexs = ListBuffer[(Int, Int)]()
     var result = ListBuffer[(Int, Int)]()

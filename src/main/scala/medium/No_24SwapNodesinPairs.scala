@@ -29,7 +29,7 @@ object No_24SwapNodesinPairs {
     if(headNode==null)head else headNode
   }
   def swapPairs2(head: ListNode): ListNode = {
-    var lastNode:ListNode=new ListNode(null)
+    var lastNode:ListNode=new ListNode()
     lastNode.next=head
     while(lastNode.next!=null && lastNode.next.next !=null) {
       val curNode = lastNode.next

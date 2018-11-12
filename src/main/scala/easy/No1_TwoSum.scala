@@ -1,4 +1,5 @@
 package easy
+import scala.collection.mutable.ArrayBuffer
 import scala.util.control._
 /**
   * Created by Administrator on 2017/11/9.
@@ -10,12 +11,11 @@ object No1_TwoSum {
     for(i<-nums.indices){
      map(nums(i))=i
     }
-    val result=scala.collection.mutable.Buffer[Int]()
+    val result=ArrayBuffer[Int]()
     loop.breakable{
     for(i<-nums.indices){
       val complement=target-nums(i)
       if(map.contains(complement)&&map(complement)!=i){
-        println(i)
         result+=i
         result+=map(complement)
         loop.break()
@@ -23,7 +23,7 @@ object No1_TwoSum {
     }}
 
 
-    result.toArray
+    result
   }
 
   def main(args: Array[String]): Unit = {

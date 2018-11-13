@@ -15,7 +15,6 @@ object No1_TwoSum {
     for(i<-nums.indices){
       val complement=target-nums(i)
       if(map.contains(complement)&&map(complement)!=i){
-        println(i)
         result+=i
         result+=map(complement)
         loop.break()

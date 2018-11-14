@@ -11,15 +11,15 @@ val nums = Array(-1, 0, 1, 2, -1, -4)
     }
 
     def threeSum(nums: Array[Int]): List[List[Int]] = {
-        import util.control.Breaks._
+
         val result = scala.collection.mutable.ListBuffer[List[Int]]()
         val sortNums = nums.sorted
-        for (i <- 0 to sortNums.length - 2) {
-            breakable {
-                if (i > 0 && sortNums(i) == sortNums(i - 1)) break()
+      val len=sortNums.length
+        for (i <- 0 to len - 2 if sortNums(i)<=0) {
+                if (i == 0 || sortNums(i) != sortNums(i - 1)) {
 
                 var head = i + 1
-                var last = sortNums.length - 1
+                var last = len - 1
 
                 /**
                   * 进行除了第一个元素外其他元素的循环，从两头向中间循环

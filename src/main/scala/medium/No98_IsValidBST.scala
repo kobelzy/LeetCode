@@ -17,7 +17,6 @@ object No98_IsValidBST {
     }
 
     def isValidBST(root: TreeNode): Boolean = {
-        isValid(root,root.left.value,root.right.value)
 
 
     }

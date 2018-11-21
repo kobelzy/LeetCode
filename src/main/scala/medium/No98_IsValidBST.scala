@@ -9,16 +9,21 @@ package medium
   */
 
 object No98_IsValidBST {
-
+    def main(args: Array[String]): Unit = {
+        val root=new TreeNode(10)
+        println(isValidBST(root))
+        var a:Int=10
+        a=null
+        println(a)
+    }
     class TreeNode(var _value: Int) {
         var value: Int = _value
-        var left: TreeNode = null
-        var right: TreeNode = null
+        var left: Option[TreeNode] = None
+        var right: Option[TreeNode] = None
     }
 
     def isValidBST(root: TreeNode): Boolean = {
-
-
+    isValid(Some(root),None,None)
     }
 //    def helper(root:TreeNode)={
 //        if(root.value==null){
@@ -33,10 +38,10 @@ object No98_IsValidBST {
 //            true
 //    }
 
-    def isValid(root: TreeNode, min: Int, max: Int): Boolean = {
-        if (root == null) return true
-        if (min != null && root.value <= min) return false
-        if (max != null && root.value >= max) return false
-        isValid(root.left, min, root.value) && isValid(root.right, root.value, max)
+    def isValid(root: Option[TreeNode], min: Option[Int], max: Option[Int]): Boolean = {
+        if (root == None) return true
+        if (min != None && root.get.value <= min.get) return false
+        if (max != None && root.get.value >= max.get) return false
+        isValid(root.get.left, min,Some( root.get.value)) && isValid(root.get.right, Some(root.get.value), max)
     }
 }

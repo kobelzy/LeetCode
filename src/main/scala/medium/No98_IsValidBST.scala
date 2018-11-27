@@ -10,11 +10,11 @@ package medium
 
 object No98_IsValidBST {
     def main(args: Array[String]): Unit = {
-        val root=new TreeNode(10)
-        println(isValidBST(root))
-        var a:Int=10
-        a=null
-        println(a)
+//        val root=new TreeNode(10)
+//        println(isValidBST(root))
+//        var a:Int=10
+//        a=null
+//        println(a)
     }
     class TreeNode(var _value: Int) {
         var value: Int = _value

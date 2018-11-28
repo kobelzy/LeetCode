@@ -9,8 +9,13 @@ package medium
 
 object No50_Pow {
     def main(args: Array[String]): Unit = {
-//        println(myPow2(1d,-2147483648))
-        println(myPow2(2d,10))
+        println(myPow(1d,-2147483648))//1.0
+        println(myPow(2d,-2147483648))//0.0
+//        println(myPow3(2d,10))
+        println(Int.MaxValue)
+        println(Int.MinValue)
+        println(math.pow(1,Int.MinValue))
+        println(math.pow(2,Int.MinValue))
     }
     /**
       * 求x的n次方
@@ -46,11 +51,16 @@ object No50_Pow {
         }
         var pow = 1d
         while (index != 0) {
-//            if (n % 2 != 0) pow *= vx
-            if ((n & 1) ==0) pow *= vx
+            if (index % 2 != 0) pow *= vx
+            //用来判断奇偶，和1做并集，如果结果为1那么是奇数
+//            if ((n & 1) ==1) pow *= vx
             vx *= vx
             index >>= 1
         }
         pow
+    }
+
+    def myPow3(x: Double, n: Int): Double = {
+       math.pow(x,n)
     }
 }

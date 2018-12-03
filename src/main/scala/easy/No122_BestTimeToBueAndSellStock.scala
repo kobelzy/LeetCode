@@ -18,5 +18,39 @@ package easy
   */
 
 object No122_BestTimeToBueAndSellStock {
+    /***  
+     * 功能实现:DFS O(2^N)^
+     *
+     * Author: Lzy  
+     * Date: 2018/12/3 9:19  
+     * Param: [prices]
+     * Return: int  
+     */
+    def maxProfit(prices: Array[Int]): Int = {
 
+    }
+
+/***
+ * 功能实现:贪心算法Gveray O(N)
+ *由于每天可以买卖无数次，且无交易费，使用贪心是最为简单合适的
+ * Author: Lzy
+ * Date: 2018/12/3 9:20
+ * Param: [prices]
+ * Return: int
+ */
+    def maxProfit(prices: Array[Int]): Int = {
+
+    }
+
+/***
+ * 功能实现:动态规划O(N)
+ *
+ * Author: Lzy
+ * Date: 2018/12/3 9:20
+ * Param: [prices]
+ * Return: int
+ */
+    def maxProfit(prices: Array[Int]): Int = {
+
+    }
 }

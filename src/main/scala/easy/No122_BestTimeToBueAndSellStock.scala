@@ -18,39 +18,47 @@ package easy
   */
 
 object No122_BestTimeToBueAndSellStock {
-    /***  
-     * 功能实现:DFS O(2^N)^
-     *
-     * Author: Lzy  
-     * Date: 2018/12/3 9:19  
-     * Param: [prices]
-     * Return: int  
-     */
+    /** *
+      * 功能实现:DFS O(2^N)^
+      *
+      * Author: Lzy
+      * Date: 2018/12/3 9:19
+      * Param: [prices]
+      * Return: int
+      */
     def maxProfit(prices: Array[Int]): Int = {
-
+        1
     }
 
-/***
- * 功能实现:贪心算法Gveray O(N)
- *由于每天可以买卖无数次，且无交易费，使用贪心是最为简单合适的
- * Author: Lzy
- * Date: 2018/12/3 9:20
- * Param: [prices]
- * Return: int
- */
-    def maxProfit(prices: Array[Int]): Int = {
+    /** *
+      * 功能实现:贪心算法Gveray O(N)
+      * 由于每天可以买卖无数次，且无交易费，使用贪心是最为简单合适的
+      * Author: Lzy
+      * Date: 2018/12/3 9:20
+      * Param: [prices]
+      * Return: int
+      */
+    def maxProfit2(prices: Array[Int]): Int = {
+        var result = 0
 
+        if (prices.length == 1) 0
+        else {
+            for (i <- 1 until prices.length) {
+                if (prices(i) > prices(i - 1)) result += (prices(i) - prices(i - 1))
+            }
+            result
+        }
     }
 
-/***
- * 功能实现:动态规划O(N)
- *
- * Author: Lzy
- * Date: 2018/12/3 9:20
- * Param: [prices]
- * Return: int
- */
-    def maxProfit(prices: Array[Int]): Int = {
-
+    /** *
+      * 功能实现:动态规划O(N)
+      *
+      * Author: Lzy
+      * Date: 2018/12/3 9:20
+      * Param: [prices]
+      * Return: int
+      */
+    def maxProfit3(prices: Array[Int]): Int = {
+        1
     }
 }

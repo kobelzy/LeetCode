@@ -41,6 +41,10 @@ object No122_BestTimeToBueAndSellStock {
     def maxProfit2(prices: Array[Int]): Int = {
         var result = 0
 
+//        prices.length match {
+//            case 1 => 0
+//            case _ => (1 until prices.length).foreach(i => if (prices(i) > prices(i - 1)) result += (prices(i) - prices(i - 1)))
+//        }
         if (prices.length == 1) 0
         else {
             for (i <- 1 until prices.length) {
@@ -60,5 +64,18 @@ object No122_BestTimeToBueAndSellStock {
       */
     def maxProfit3(prices: Array[Int]): Int = {
         1
+    }
+
+    /** *
+      * 功能实现:动态规划O(N)
+      *
+      * Author: Lzy
+      * Date: 2018/12/3 9:20
+      * Param: [prices]
+      * Return: int
+      */
+    def maxProfit4(prices: Array[Int]): Int = {
+        if (prices.length <= 1) 0
+        else prices.init.zip(prices.tail).map(t => t._2 - t._1).filter(_ > 0).sum
     }
 }

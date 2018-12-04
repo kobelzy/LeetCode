@@ -68,7 +68,7 @@ object No122_BestTimeToBueAndSellStock {
 
     /** *
       * 功能实现:动态规划O(N)
-      *
+      *打败37%
       * Author: Lzy
       * Date: 2018/12/3 9:20
       * Param: [prices]

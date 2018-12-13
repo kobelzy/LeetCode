@@ -48,4 +48,18 @@ object No22_GenerateParentheses {
            ListBuffer.empty[String]
         }
     }
+
+    /***
+     * 功能实现:
+     *回溯+剪枝
+     * Author: Lzy
+     * Date: 2018/12/12 9:27
+     * Param: [n]
+     * Return: scala.collection.immutable.List<java.lang.String>
+     */
+    def generateParenthesis2(n: Int): List[String] = {
+        val result=ListBuffer[String]()
+        generateOneByOne("",result,n,n)
+        return result.toList
+    }
 }

@@ -1,4 +1,4 @@
-package arrays
+package easy
 
 /**
   * Created by Administrator on 2018/9/10.

@@ -18,15 +18,19 @@ package medium
   * Date Created by： 9:06 on 2018/12/25
   * Modified By：
   */
-class No208_ImplementTrie() {
 
-
+object No208_ImplementTrie{
     def main(args: Array[String]): Unit = {
+        println('c'-'a')
+    }
+}
+class No208_ImplementTrie{
+
+
 //        var obj = new No208_ImplementTrie()
 //        obj.insert(word)
 //        var param_2 = obj.search(word)
 //        var param_3 = obj.startsWith(prefix)
-    }
     /** Initialize your data structure here. */
 
 

@@ -42,6 +42,7 @@ public class No208_ImplementTrieJ {
         TrieNode ws=root;
         for(int i=0;i<word.length();i++){
             char c=word.charAt(i);
+            //c-'a' 返回字符c距离a的距离，如果是b距离为1
             if(ws.children[c - 'a']==null){
                 ws.children[c -'a']=new TrieNode(c);
             }

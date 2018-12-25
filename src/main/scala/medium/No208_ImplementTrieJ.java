@@ -13,62 +13,80 @@ package medium;/**
  **/
 public class No208_ImplementTrieJ {
     public static void main(String[] args) {
-        String word="word";
-                System.out.println('a'-'a');
-                System.out.println('b'-'a');
+        String word = "word";
+        System.out.println('a' - 'a');
+        System.out.println('b' - 'a');
 
 
     }
-        class TrieNode{
+
+    class TrieNode {
+        /**
+         * 当前节点的值
+         */
         public char val;
+        /**
+         * 当前节点是否为单词
+         */
         public boolean isWord;
-        public TrieNode[] children=new TrieNode[26];
-        public TrieNode(){}
-        TrieNode(char c){
-            TrieNode node =new TrieNode();
-            node.val=c;
+        public TrieNode[] children = new TrieNode[26];
+
+        public TrieNode() {
+        }
+
+        TrieNode(char c) {
+            TrieNode node = new TrieNode();
+            node.val = c;
         }
     }
 
     private TrieNode root;
-    /** Initialize your data structure here. */
+
+    /**
+     * Initialize your data structure here.
+     */
     public No208_ImplementTrieJ() {
-    root=new TrieNode();
-    root.val=' ';
+        root = new TrieNode(' ');
     }
 
-    /** Inserts a word into the trie. */
+    /**
+     * Inserts a word into the trie.
+     */
     public void insert(String word) {
-        TrieNode ws=root;
-        for(int i=0;i<word.length();i++){
-            char c=word.charAt(i);
+        TrieNode ws = root;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
             //c-'a' 返回字符c距离a的距离，如果是b距离为1
-            if(ws.children[c - 'a']==null){
-                ws.children[c -'a']=new TrieNode(c);
+            if (ws.children[c - 'a'] == null) {
+                ws.children[c - 'a'] = new TrieNode(c);
             }
-            ws=ws.children[c - 'c'];
+            ws = ws.children[c - 'a'];
         }
-        ws.isWord=true;
+        ws.isWord = true;
     }
 
-    /** Returns if the word is in the trie. */
+    /**
+     * Returns if the word is in the trie.
+     */
     public boolean search(String word) {
-    TrieNode ws =root;
-    for(int i=0;i<word.length();i++){
-        char c =word.charAt(i);
-                if(ws.children[c-'a']==null) return false;
-                ws =ws.children[c - 'a'];
-    }
-    return ws.isWord;
+        TrieNode ws = root;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (ws.children[c - 'a'] == null) return false;
+            ws = ws.children[c - 'a'];
+        }
+        return ws.isWord;
     }
 
-    /** Returns if there is any word in the trie that starts with the given prefix. */
+    /**
+     * Returns if there is any word in the trie that starts with the given prefix.
+     */
     public boolean startsWith(String prefix) {
-        TrieNode ws=root;
-        for(int i=0;i<prefix.length();i++){
-            char c =prefix.charAt(i);
-            if(ws.children[c-'a']==null)return false;
-            ws=ws.children[c-'a'];
+        TrieNode ws = root;
+        for (int i = 0; i < prefix.length(); i++) {
+            char c = prefix.charAt(i);
+            if (ws.children[c - 'a'] == null) return false;
+            ws = ws.children[c - 'a'];
         }
         return true;
     }

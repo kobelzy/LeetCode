@@ -14,10 +14,13 @@ package medium;/**
 public class No208_ImplementTrieJ {
     public static void main(String[] args) {
         String word = "word";
-        System.out.println('a' - 'a');
-        System.out.println('b' - 'a');
+        No208_ImplementTrieJ obj = new No208_ImplementTrieJ();
+        obj.insert(word);
+        boolean param_2 = obj.search(word);
+        boolean param_3 = obj.startsWith("wora");
 
-
+        System.out.println(param_2);
+        System.out.println(param_3);
     }
 
     class TrieNode {
@@ -81,6 +84,12 @@ public class No208_ImplementTrieJ {
     /**
      * Returns if there is any word in the trie that starts with the given prefix.
      */
+    /**
+     * create by: lzy
+     * create time: 2018/12/25 10:22
+     *
+     * @return
+     */
     public boolean startsWith(String prefix) {
         TrieNode ws = root;
         for (int i = 0; i < prefix.length(); i++) {
@@ -90,5 +99,6 @@ public class No208_ImplementTrieJ {
         }
         return true;
     }
+
 
 }

@@ -16,8 +16,20 @@ package easy;
  * @create: 2019-01-04 09:56
  **/
 public class No191_NumberOf1BitsJ {
-    // you need to treat n as an unsigned value
-    public int hammingWeight(int n) {
-
+    public static void main(String[] args){
+        String a= Integer.toBinaryString(8);
+        System.out.println(a);
+        int mark=9;
+                mark&=mark-1;
+        System.out.println(mark);
     }
+    public int hammingWeight(int n) {
+        int res=0;
+
+        for(int mark=n;mark!=0;mark &= mark-1){
+            res++;
+        }
+        return res;
+    }
+
 }

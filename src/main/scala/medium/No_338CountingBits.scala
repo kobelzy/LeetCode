@@ -24,11 +24,24 @@ package medium
   **/
 
 object No_338CountingBits {
+    def main(args: Array[String]): Unit = {
+        println(3&2)
+    }
+
+    //scala的没有通过，超时，但是java的可以
     def countBits(num: Int): Array[Int] = {
 //        val arr=Array.fill(num+1)(0)
         val arr=new Array[Int](num+1)
         for(i<- 1 to num){
             //脑洞比较大
+            /**
+              * 输入5
+              *          0    1    2     3     4      5        6        7       8       9       10      11     12     13      14      15      16
+              *二进制   0     1    10    11    100    101     110      111      1000   1001     1010    1011    1100    1101     1110   1111    10000
+              * n&(n-1)  空  0     0     10     0      100     100     110      0      1000     1000    1010    1001     1100      1100      1110        0
+              *         0     0    0      2     0       4       4        6      0        8        8       10      9       12        12        14         0
+              * 结果： 0      1     1     2    1      2        2        3        1      2        2      3       2      3        3      4        1
+              */
             arr(i)+= arr(i&(i-1))+1
         }
         arr

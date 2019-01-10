@@ -10,6 +10,10 @@ package sort;
 public class QuickUnionUF {
     private int[] roots;
 
+    /**
+     * 初始化，每个节点指向自己
+     * @param N
+     */
     public QuickUnionUF(int N){
         roots=new int[N];
         for(int i=0;i<N;i++){

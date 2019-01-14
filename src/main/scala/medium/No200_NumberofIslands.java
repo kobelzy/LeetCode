@@ -31,10 +31,13 @@ public class No200_NumberofIslands {
     char[][] grid=null;
     public int numIslands(char[][] grid) {
 
+
+return -1;
     }
 
     public boolean isValid(int x,int y){
         if(x<0 || x>=maxX || y<0 || y>=maxY) return false;
-        if(grid[x][y]=='0' ||)
+//        if(grid[x][y]=='0' ||)
+        return true;
     }
 }

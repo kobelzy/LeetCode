@@ -20,7 +20,7 @@ import java.util.Arrays;
  * @author: Lzy
  * @create: 2018-12-18 08:55
  **/
-public class No37_SudokuSolver {
+public class No37_SudokuSolverJ {
     int count = 0;
 
     public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class No37_SudokuSolver {
                 {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
                 {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
                 {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
-        No37_SudokuSolver a = new No37_SudokuSolver();
+        No37_SudokuSolverJ a = new No37_SudokuSolverJ();
         a.solveSudoku(board);
         for (int i = 0; i < board.length; i++) {
             System.out.println(Arrays.toString(board[i]));

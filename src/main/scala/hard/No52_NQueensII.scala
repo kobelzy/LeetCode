@@ -30,7 +30,7 @@ package hard
   * Modified By：
   */
 
-object No_52_NQueensII {
+object No52_NQueensII {
     def main(args: Array[String]): Unit = {
         println(6 & -6)
     }
@@ -47,17 +47,17 @@ object No_52_NQueensII {
             count += 1;
             return
         }
-        //得到当前所有空位
-        /*
-
-         */
+            /** 得到当前所有空位*/
+            //cols | pie | na 得到的结果是一个二进制，其中为1的部分就是可以存放的位置。取反可以转换为0。
+            //((1 << n) - 1) 只留下最后的n个位置。
         var bits: Int = (~(cols | pie | na)) & ((1 << n) - 1) // 2n-1
 
         while (bits != 0) {
-            //取最低位的1
+            //取最低位的1，负数用补码，源码取反-1
             val p = bits & -bits
+            //跟新到下一行，。na向右移，pie向左移
             dfs(n, row + 1, cols | p, (pie | p) << 1, (na | p) >> 1)
-            bits = bits & (bits - 1)//去掉最低位的1
+            bits = bits & (bits - 1)//去掉最低位的1，当前位已经被占用
         }
 
 

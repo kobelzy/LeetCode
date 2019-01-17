@@ -42,7 +42,7 @@ object No72_EditDistance {
 
     /*
     DP两部曲：
-    1、状态：DP[i][j]
+    1、状态：DP[i][j] ：word1的前i个字符=>word2前j个字符最少的步数
     2、DP方程
      */
     def minDistance(word1: String, word2: String): Int = {
@@ -53,11 +53,11 @@ object No72_EditDistance {
         for (j <- dp.head.indices) dp(0)(j) = j
 
         for (i <- 1 to m; j <- 1 to n) {
-            dp(i)(j) = Array(
-                dp(i - 1)(j - 1) + (if (word1(i - 1) == word2(j - 1)) 0 else 1),
-                dp(i - 1)(j) + 1,
-                dp(i)(j - 1) + 1
-            ).min
+            //i表示Word1所在的字符位，j表示word2
+            dp(i)(j) = math.min(dp(i - 1)(j - 1) + (if (word1(i - 1) == word2(j - 1)) 0 else 1), //replace,如果直接相等，那么不用移动，如果不移动，那么需要交换一下，是1词
+                math.min(dp(i - 1)(j) + 1,//insert
+                    dp(i)(j - 1) + 1)//delete)
+                )
         }
         return dp(m)(n)
     }

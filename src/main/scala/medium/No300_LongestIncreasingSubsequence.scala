@@ -19,7 +19,7 @@ package medium
   * Date Created by： 8:53 on 2019/1/21
   */
 
-object No_LongestIncreasingSubsequence {
+object No300_LongestIncreasingSubsequence {
     /*动态规划。时间复杂度为O(n^2)。
     状态转移方程：dp[i] = max{dp[j]+1，dp[i]}, j<i&&a[j]<a[i].
 

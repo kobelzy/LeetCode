@@ -1,6 +1,5 @@
 package hard
 
-import scala.collection.mutable
 
 /**
   * 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。
@@ -30,6 +29,7 @@ import scala.collection.mutable
   * Date Created by： 8:50 on 2019/1/25
   */
 
+// TODO: 还有N多问题需要修改
 object No146_LRUCache {
 
 
@@ -37,8 +37,9 @@ object No146_LRUCache {
 
     def main(args: Array[String]): Unit = {
 
-        val cache = new No146_LRUCache(2 /* 缓存容量 */)
-        println(cache.get(1))
+        val cache = new No146_LRUCache(1 /* 缓存容量 */)
+
+        println(cache.get(0))
         println("head:" + cache.head.key, cache.tail.key);
 
         println(cache.put(2, 1))
@@ -78,15 +79,15 @@ object No146_LRUCache {
 Map：用于数据查询与存储
 双向List：用于维护node关系，经常查询的保持在头端，不常被查询的逐步剔除
  */
-case class Node(key: Int, var value: Int, var next: Option[Node], var pre: Option[Node])
+case class Node(key: Int, var value: Int, var next: Option[Node]=None, var pre: Option[Node]=None)
 
 class No146_LRUCache(_capacity: Int) {
     var count = 2
-    var head = Node(0, 0, None, None)
-    var tail = Node(0, 0, None, Some(head))
+    var head = Node(-1, -1)
+    var tail = Node(-1, -1, None, Some(head))
     head.next = Some(tail)
-    val hm: mutable.Map[Int, Node] = scala.collection.mutable.Map(head.key -> head, tail.key -> tail)
-
+    val hm = scala.collection.mutable.Map(head.key -> head, tail.key -> tail)
+    if(_capacity==1) head=tail
     def get(key: Int): Int = {
         if (hm.contains(key)) {
             val node = hm(key)

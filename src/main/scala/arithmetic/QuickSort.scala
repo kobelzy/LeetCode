@@ -1,4 +1,4 @@
-package sort
+package arithmetic
 
 object QuickSort {
   def main(args: Array[String]): Unit = {

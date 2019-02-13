@@ -1,6 +1,6 @@
 package medium
 
-object NO15_ThreeSum {
+object No15_ThreeSum {
 
     def main(args: Array[String]): Unit = {
         //    val nums = Array(-2, 0, 2, 2)

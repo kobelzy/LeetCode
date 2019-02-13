@@ -1,8 +1,10 @@
 package arithmetic;
 
 import scala.actors.threadpool.Arrays;
+import scala.collection.mutable.PriorityQueue$;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 /**
  * 最大堆
@@ -12,6 +14,7 @@ import java.util.ArrayList;
  * Modified By：
  */
 public class MaxHeap<E extends Comparable<E>> {
+
 
     private ArrayList<E> data;
 

@@ -1,4 +1,4 @@
-package sort;
+package arithmetic;
 
 /**
  * 并查集，路径压缩

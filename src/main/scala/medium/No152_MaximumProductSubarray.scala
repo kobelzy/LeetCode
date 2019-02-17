@@ -16,7 +16,7 @@ package medium
   * Date Created by： 9:23 on 2019/1/18
   */
 
-object No_152MaximumProductSubarray {
+object No152_MaximumProductSubarray {
     def main(args: Array[String]): Unit = {
         val nums = Array(2, 3, -2, 4)
         println(maxProduct(nums))

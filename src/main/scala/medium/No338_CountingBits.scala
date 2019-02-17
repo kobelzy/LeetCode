@@ -23,7 +23,7 @@ package medium
   * Modified By：
   **/
 
-object No_338CountingBits {
+object No338_CountingBits {
     def main(args: Array[String]): Unit = {
         println(3&2)
     }

@@ -1,7 +1,7 @@
 package medium
 
 
-object No_24SwapNodesinPairs {
+object No24_SwapNodesinPairs {
 
   //  给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
   //  给定 1->2->3->4, 你应该返回 2->1->4->3.

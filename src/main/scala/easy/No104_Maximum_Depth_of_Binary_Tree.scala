@@ -48,17 +48,6 @@ object No104_Maximum_Depth_of_Binary_Tree {
         }
     }
 
-    /** *
-      * 功能实现:BFS
-      *
-      * Author: Lzy
-      * Date: 2018/12/10 9:12
-      * Param: [root]
-      * Return: int
-      */
-    def maxDepth2(root: TreeNode): Int = {
-        -1
-    }
 
     /** *
       * 功能实现:最小深度

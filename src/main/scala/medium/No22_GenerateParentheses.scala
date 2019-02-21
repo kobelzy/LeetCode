@@ -20,7 +20,7 @@ import scala.collection.mutable.ListBuffer
   * Modified By：
   *
   * 解决思路：
-  *  生成对应的括号对，那么左括号和右括号的数量是一样的，都是n
+  * 生成对应的括号对，那么左括号和右括号的数量是一样的，都是n
   *
   *
   *
@@ -30,36 +30,32 @@ object No22_GenerateParentheses {
     def main(args: Array[String]): Unit = {
         println(generateParenthesis(3).mkString("\n"))
     }
+
     def generateParenthesis(n: Int): List[String] = {
-        val result=ListBuffer[String]()
-        generateOneByOne("",result,n,n)
-        return result.toList
+        val result = ListBuffer[String]()
+        generateOneByOne("", result, n, n)
+         result.toList
     }
-    def generateOneByOne(sublist:String,result:ListBuffer[String],left:Int,right:Int):ListBuffer[String]={
-        if(left ==0 && right ==0){
-            result+=(sublist)
-        }else{
-        if(left >0){
-            generateOneByOne(sublist+"(",result,left -1,right)
-        }
-        if(right > left){
-            generateOneByOne(sublist+")",result,left,right-1)
-        }
-           ListBuffer.empty[String]
+
+    def generateOneByOne(sublist: String, result: ListBuffer[String], left: Int, right: Int): Unit = {
+        if (left == 0 && right == 0) result += (sublist)
+        else {
+            if (left > 0) generateOneByOne(sublist + "(", result, left - 1, right)
+            if (right > left) generateOneByOne(sublist + ")", result, left, right - 1)
         }
     }
 
-    /***
-     * 功能实现:
-     *回溯+剪枝
-     * Author: Lzy
-     * Date: 2018/12/12 9:27
-     * Param: [n]
-     * Return: scala.collection.immutable.List<java.lang.String>
-     */
+    /** *
+      * 功能实现:
+      * 回溯+剪枝
+      * Author: Lzy
+      * Date: 2018/12/12 9:27
+      * Param: [n]
+      * Return: scala.collection.immutable.List<java.lang.String>
+      */
     def generateParenthesis2(n: Int): List[String] = {
-        val result=ListBuffer[String]()
-        generateOneByOne("",result,n,n)
+        val result = ListBuffer[String]()
+        generateOneByOne("", result, n, n)
         return result.toList
     }
 }

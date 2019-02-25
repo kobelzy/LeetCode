@@ -36,7 +36,12 @@ object No146_LRUCache {
     def apply(capacity: Int): No146_LRUCache = new No146_LRUCache(capacity)
 
     def main(args: Array[String]): Unit = {
-
+        val head = Node(-1, -1)
+        val tail = Node(-1, -1)
+        head.next = tail
+        tail.pre=head
+//        println(head)
+//        println(tail)
         val cache = new No146_LRUCache(1 /* 缓存容量 */)
 
         println(cache.get(0))
@@ -79,15 +84,18 @@ object No146_LRUCache {
 Map：用于数据查询与存储
 双向List：用于维护node关系，经常查询的保持在头端，不常被查询的逐步剔除
  */
-case class Node(key: Int, var value: Int, var next: Option[Node]=None, var pre: Option[Node]=None)
+case class Node(key: Int, var value: Int, var next: Node=null, var pre:Node=null)
 
 class No146_LRUCache(_capacity: Int) {
     var count = 2
+    //互相引用会导致栈溢出，再打印会栈溢出
     var head = Node(-1, -1)
-    var tail = Node(-1, -1, None, Some(head))
-    head.next = Some(tail)
+    var tail = Node(-1, -1, null, head)
+    head.next = tail
     val hm = scala.collection.mutable.Map(head.key -> head, tail.key -> tail)
     if(_capacity==1) head=tail
+
+
     def get(key: Int): Int = {
         if (hm.contains(key)) {
             val node = hm(key)
@@ -104,7 +112,7 @@ class No146_LRUCache(_capacity: Int) {
                 detachNode(node)
                 insertToHead(node)
             case None =>
-                val newNode = Node(key, value, None, None)
+                val newNode = Node(key, value)
                 insertToHead(newNode)
                 hm += key -> newNode
                 this.count += 1
@@ -114,23 +122,23 @@ class No146_LRUCache(_capacity: Int) {
 
     /** 将节点放到缓存 头部 */
     def insertToHead(node: Node) = {
-        this.head.pre = Some(node)
-        node.next = Some(this.head)
-        node.pre = None
+        this.head.pre = node
+        node.next = this.head
+        node.pre = null
         this.head = node
     }
 
     /** 删除指定node */
     def detachNode(node: Node) = {
         if (node == this.head) {
-            this.head = node.next.get
-            node.next.get.pre = None
+            this.head = node.next
+            node.next.pre = null
         } else if (node == this.tail) {
-            this.tail = node.pre.get
-            node.pre.get.next = None
+            this.tail = node.pre
+            node.pre.next = null
         } else {
-            node.pre.get.next = node.next
-            node.next.get.pre = node.pre
+            node.pre.next = node.next
+            node.next.pre = node.pre
         }
 
 //        if (node.next.isDefined) {//如果节点的下一个节点不为空
@@ -147,8 +155,8 @@ class No146_LRUCache(_capacity: Int) {
     def removeNode() = {
         val tailKey = this.tail.key
         hm -= tailKey
-        this.tail = this.tail.pre.get
-        this.tail.next = None
+        this.tail = this.tail.pre
+        this.tail.next = null
         count -= 1
     }
 
@@ -161,13 +169,13 @@ class No146_LRUCache(_capacity: Int) {
 
         while (p != null) {
             println("key: " + p.key + " value: " + p.value)
-            p = p.next.get
+            p = p.next
         }
         println("From tail:")
         p = this.tail
         while (p != null) {
             println("key: " + p.key + " value: " + p.value)
-            p = p.pre.get
+            p = p.pre
         }
     }
 }

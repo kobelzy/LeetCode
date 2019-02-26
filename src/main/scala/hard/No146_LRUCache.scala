@@ -1,5 +1,7 @@
 package hard
 
+import scala.util.Try
+
 
 /**
   * 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。
@@ -36,16 +38,33 @@ object No146_LRUCache {
   def apply(capacity: Int): No146_LRUCache = new No146_LRUCache(capacity)
 
   def main(args: Array[String]): Unit = {
+    test()
+
+  }
+
+  def test() = {
+    val cache = new No146_LRUCache(1 /* 缓存容量 */)
+    println("head_next:" + Try(cache.head.next.key).getOrElse("null"),"head_pre:" + Try(cache.head.pre.key).getOrElse("null"))
+
+    println(cache.put(2, 1))
+    println("head:" + cache.head.key, cache.tail.key);
+    println("head_next:" + Try(cache.head.next.key).getOrElse("null"),"head_pre:" + Try(cache.head.pre.key).getOrElse("null"))
+
+    println(cache.get(2))
+    println("head:" + cache.head.key, cache.tail.key);
+  }
+
+  def test1() = {
     //        println(head)
     //        println(tail)
-    val cache = new No146_LRUCache(1 /* 缓存容量 */)
+    val cache = new No146_LRUCache(2 /* 缓存容量 */)
 
     println(cache.get(0))
     println("head:" + cache.head.key, cache.tail.key);
 
     println(cache.put(2, 1))
     println("head:" + cache.head.key, cache.tail.key);
-println(cache.head)
+    println("head_next:" + Try(cache.head.next.key).getOrElse("null"),"head_pre" + Try(cache.head.pre.key).getOrElse("null"))
 
     println(cache.get(2))
     println("head:" + cache.head.key, cache.tail.key);
@@ -72,6 +91,7 @@ println(cache.head)
     println(cache.get(3)) // 返回  3
     println(cache.get(4)) // 返回  4
 
+
   }
 }
 
@@ -90,7 +110,7 @@ class No146_LRUCache(_capacity: Int) {
   head.next = tail
   tail.pre = head
   val hm = scala.collection.mutable.Map(head.key -> head, tail.key -> tail)
-  if (_capacity == 1) head = tail
+//  if (_capacity == 1) tail = head
 
 
   def get(key: Int): Int = {
@@ -113,7 +133,7 @@ class No146_LRUCache(_capacity: Int) {
         insertToHead(newNode)
         hm += key -> newNode
         this.count += 1
-        if (this.count >= _capacity) removeNode()
+        while (this.count > _capacity) removeNode()
     }
   }
 
@@ -129,7 +149,7 @@ class No146_LRUCache(_capacity: Int) {
   def detachNode(node: Node) = {
     if (node == this.head) {
       this.head = node.next
-      node.next.pre = null
+      if(node.next!=null)  node.next.pre=null
     } else if (node == this.tail) {
       this.tail = node.pre
       node.pre.next = null

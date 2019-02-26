@@ -7,7 +7,7 @@ class No146_LRUCache2(capacity: Int) {
   var head = Node(-1, -1)
   var tail = Node(-1, -1)
 
-  def moveToTail(target: Node, isNew: Boolean) = {
+  def moveToTail(target: Node, isNew: Boolean = false) = {
     if (target != tail.next) {
       if (!isNew) {
         target.pre.next = target.next
@@ -24,7 +24,7 @@ class No146_LRUCache2(capacity: Int) {
   def get(key: Int) = {
     map.get(key) match {
       case Some(target) =>
-        moveToTail(target, false)
+        moveToTail(target)
         tail.next.next = null
         target.value
       case None => -1
@@ -36,30 +36,29 @@ class No146_LRUCache2(capacity: Int) {
       case Some(target) => {
         target.value = value
         map(key) = target
-        moveToTail(target, false)
+        moveToTail(target)
       }
       case None if map.size < capacity =>
         val newNode = Node(key, value)
-        if (map.size < capacity) {
-          map.put(key, newNode)
-          if (head.next == null) {
-            head.next = newNode
-            newNode.pre = head
-            tail.next = newNode
-          } else {
-            moveToTail(newNode, true)
-          }
+        map.put(key, newNode)
+        if (head.next == null) {
+          head.next = newNode
+          newNode.pre = head
+          tail.next = newNode
+        } else {
+          moveToTail(newNode, isNew = true)
         }
       case None =>
         val newNode = Node(key, value)
         map -= head.next.key
+        // cache中只有一个元素
         if (head.next == tail.next) {
           head.next = newNode
           tail.next = newNode
         } else {
           head.next.next.pre = head
           head.next = head.next.next
-          moveToTail(newNode, true)
+          moveToTail(newNode, isNew = true)
         }
 
 

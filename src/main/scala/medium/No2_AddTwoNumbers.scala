@@ -18,46 +18,43 @@ package medium
   * Modified By：
   */
 class ListNode(var _x: Int = 0) {
-      var next: ListNode = null
-      var x: Int = _x
-    }
+  var next: ListNode = null
+  var x: Int = _x
+}
+
 object No2_AddTwoNumbers {
 
-    def main(args: Array[String]): Unit = {
-        val l1=new ListNode(2)
-        l1.next=new ListNode(4)
-        l1.next.next=new ListNode(3)
+  def main(args: Array[String]): Unit = {
+    val l1 = new ListNode(2)
+    l1.next = new ListNode(4)
+    l1.next.next = new ListNode(3)
 
-        val l2=new ListNode(5)
-        l2.next=new ListNode(6)
-        l2.next.next=new ListNode(4)
-        val result=addTwoNumbers(l1,l2)
-        println(result.x)
-        println(result.next.x)
-        println(result.next.next.x)
+    val l2 = new ListNode(5)
+    //        l2.next=new ListNode(6)
+    //        l2.next.next=new ListNode(4)
+    val result = addTwoNumbers(l1, l2)
+    println(result.x)
+    println(result.next.x)
+    println(result.next.next.x)
+  }
+
+  def addTwoNumbers(l1: ListNode, l2: ListNode): ListNode = {
+    var value = 0
+    var isIn = 0
+    var node: ListNode = new ListNode(0)
+    val head = node
+    var currentL1 = l1
+    var currentL2 = l2
+    while (currentL1 != null || currentL2 != null) {
+      value = (if (currentL1 == null) currentL2.x else if (currentL2 == null) currentL1.x else currentL1.x + currentL2.x) + isIn
+      isIn = value / 10
+      val newNode = new ListNode(value % 10)
+      node.next = newNode
+      node = newNode
+      currentL1 = if (currentL1 != null) currentL1.next else currentL1
+      currentL2 = if (currentL2 != null) currentL2.next else currentL2
     }
-    def addTwoNumbers(l1: ListNode, l2: ListNode): ListNode = {
-        var value=0
-        var isIn=false
-        var node:ListNode=new ListNode(0)
-        val head=node
-        var currentL1=l1
-        var currentL2=l2
-        while(currentL1!=null) {
-            value=currentL1.x+currentL2.x
-            if(isIn) value+=1
-            if(value>=10){
-                value=value-10
-                isIn=true
-            } else {
-                isIn=false
-            }
-            val newNode=new ListNode(value)
-            node.next=newNode
-            node=newNode
-            currentL1=currentL1.next
-            currentL2=currentL2.next
-        }
-        head.next
-    }
+    if (isIn > 0) node.next = new ListNode(1)
+    head.next
+  }
 }

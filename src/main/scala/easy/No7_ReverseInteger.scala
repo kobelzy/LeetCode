@@ -18,6 +18,6 @@ package easy
   */
 object No7_ReverseInteger {
   def reverse(x: Int): Int = {
-
+0
   }
 }

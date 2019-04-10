@@ -30,11 +30,13 @@ object No300_LongestIncreasingSubsequence {
         if (nums.isEmpty) 0
         else {
             var res = 1
-            val dp = Array.fill(nums.length + 1)(1)
+            val dp = Array.fill(nums.length )(1)
             for (i <- 1 until nums.length) {
                 for (j <- 0 until i) if (nums(j) < nums(i)) dp(i) = math.max(dp(i), dp(j) + 1)
                 res = math.max(res, dp(i))
             }
+
+
             res
         }
     }

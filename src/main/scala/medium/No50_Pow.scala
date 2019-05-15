@@ -9,14 +9,18 @@ package medium
 
 object No50_Pow {
     def main(args: Array[String]): Unit = {
-        println(myPow(1d,-2147483648))//1.0
-        println(myPow(2d,-2147483648))//0.0
+//        println(myPow(1d,-2147483648))//1.0
+//        println(myPow(2d,-2147483648))//0.0
 //        println(myPow3(2d,10))
         println(Int.MaxValue)
         println(Int.MinValue)
-        println(math.pow(1,Int.MinValue))
-        println(math.pow(2,Int.MinValue))
+        println(math.pow(1, Int.MinValue))
+        println(math.pow(2, Int.MinValue))
+        println(myPow3(2, 3))
+        val a = 101L
+        println(a & 1)
     }
+
     /**
       * 求x的n次方
       * （1）直接调用math函数
@@ -59,8 +63,21 @@ object No50_Pow {
         }
         pow
     }
-
+    /**二分法 */
     def myPow3(x: Double, n: Int): Double = {
-       math.pow(x,n)
+        var s = x
+        if (n == 0) return 1
+        var nLong = n.toLong
+        if (nLong < 0) {
+            nLong = -nLong
+            s = 1.0 / s
+        }
+        var res = 1d
+        while (nLong != 0) {
+            if ((nLong & 1) == 1) res *= s
+            s *= s
+            nLong = nLong >> 1
+        }
+        res
     }
 }

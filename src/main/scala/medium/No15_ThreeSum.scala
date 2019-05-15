@@ -12,40 +12,89 @@ object No15_ThreeSum {
         println(threeSum(nums))
     }
 
+    /**
+     * 功能实现:实现没有问题，但是会超时，而Java版本的没有任何问题
+     * Author: Lzy
+     * Date: 2019/5/15 14:25
+     * Param: [nums]
+     * Return:
+     */
     def threeSum(nums: Array[Int]): List[List[Int]] = {
 
         val result = scala.collection.mutable.ListBuffer[List[Int]]()
-        val sortNums = nums.sorted
+        val sortNums = nums.sortWith(_<_)
         val len = sortNums.length
         for (i <- 0 until len - 2 if sortNums(i) <= 0) {
             if (i == 0 || sortNums(i) != sortNums(i - 1)) {
                 var head = i + 1
                 var last = len - 1
 
-                val currentNum = sortNums(i)
                 /**
                   * 进行除了第一个元素外其他元素的循环，从两头向中间循环
                   */
                 while (head < last) {
-                    val s = currentNum + sortNums(head) + sortNums(last)
-
-                    if(s ==0) {
+                    val s = sortNums(i) + sortNums(head) + sortNums(last)
+                    if (s == 0) {
                         //否则结果刚好为0，
-                        result += List(currentNum, sortNums(head), sortNums(last))
-                        //继续做魂环，如果下一个头元素和当前相等，那么跳过下一个，
+                        result += List(sortNums(i), sortNums(head), sortNums(last))
+                        //继续做循环，如果下一个头元素和当前相等，那么跳过下一个，
                         while (head < last && sortNums(head) == sortNums(head + 1)) head += 1
                         //如果下一个尾元素和当前相等，则跳过下一个
                         while (head < last && sortNums(last) == sortNums(last - 1)) last -= 1
                         head += 1
                         last -= 1
-                    }                    //如果三个数的和小于0，那么说明head元素比较小
+                    }//如果三个数的和小于0，那么说明head元素比较小
                     else if (s < 0) head += 1
                     //如果s大于0，说明结尾元素比较大，需要减小，取其前边的元素
-                    else  last -= 1
-
+                    else last -= 1
                 }
             }
         }
+        result.toList
+    }
+
+    /**
+      * 无法解决，有重复项
+      * @param nums
+      * @return
+      */
+    def threeSum2(nums: Array[Int]): List[List[Int]] = {
+        val result = scala.collection.mutable.ListBuffer[List[Int]]()
+        val sorted=nums.sorted
+        val posIndex=sorted.indexWhere(_ > 0)
+        println(posIndex)
+        println(sorted.mkString(","))
+        if (posIndex>=sorted.length-1) return List.empty[List[Int]]
+        (0 until posIndex) .foreach(i=>{
+            (posIndex until sorted.length) .foreach(j=>{
+                if(i==0 ||sorted(i)!=sorted(i-1)){
+                val target = 0 - sorted(i) - sorted(j)
+                val targetIndex=sorted.lastIndexOf(target)
+                if (targetIndex!= -1 && targetIndex!=i &&targetIndex!=j) result += List(sorted(i), sorted(j), target)
+                }
+            })
+        })
+
+        result.toList
+    }
+
+/**
+ * 功能实现:无法解决，有个重复项
+ * Author: Lzy
+ * Date: 2019/5/15 14:05
+ * Param: [nums]
+ * Return:
+ */
+    def threeSum3(nums: Array[Int]): List[List[Int]] = {
+        val result=scala.collection.mutable.ListBuffer[List[Int]]()
+        val (negtives,postives)=nums.partition(_<=0)
+        if(negtives.isEmpty) return List[List[Int]]()
+        negtives.foreach(neg=>{
+            postives.foreach(pos=>{
+                val target =0-neg-pos
+                if(nums.contains(target)&&target!=neg && target !=pos) result += List(neg,pos,target)
+            })
+        })
         result.toList
     }
 }

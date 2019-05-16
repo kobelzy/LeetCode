@@ -21,29 +21,31 @@ nums2 = [3, 4]
 则中位数是 (2 + 3)/2 = 2.5
  */
 object No4_MedianOfTwoSortedArrays {
-  def main(args: Array[String]): Unit = {
-    println(findMedianSortedArrays(Array(1,3),Array(2,4))) //2.5
-    println(findMedianSortedArrays(Array(1,3),Array(2)))   //2.0
-    println(findMedianSortedArrays(Array(1,3),Array(2)))   //2.0
-    println(findMedianSortedArrays(Array(1,3),Array.empty[Int]))   //2.0
-  }
-  def findMedianSortedArrays(nums1: Array[Int], nums2: Array[Int]): Double = {
-    val len1 = nums1.length
-    val len2 = nums2.length
-    var i = 0
-    var j = 0
-    val outs = (len1 + len2) / 2 - 1
-    var current = 0
-    while (current < outs) {
-      if (nums1(i) < nums2(j)  ){ if (i < len1 )  i += 1 else j+=1}
-      else j += 1
-      current += 1
+    def main(args: Array[String]): Unit = {
+        println(findMedianSortedArrays(Array(1, 3), Array(2, 4))) //2.5
+        println(findMedianSortedArrays(Array(1, 3), Array(2)))   //2.0
+        println(findMedianSortedArrays(Array(1, 3), Array(2)))   //2.0
+        println(findMedianSortedArrays(Array(1, 3), Array.empty[Int]))   //2.0
     }
-    val num1=if(len1==0) 0 else nums1(i)
-    val num2=if(len2==0) 0 else nums2(j)
-    if ((len1 + len2) % 2 == 0) (num1 + num2) / 2d else {
-      if (num1 > num2) num1 else num2
+
+    def findMedianSortedArrays(nums1: Array[Int], nums2: Array[Int]): Double = {
+
+        val len1 = nums1.length
+        val len2 = nums2.length
+        if (len1 == 0) {
+            if ((len2 & 1) == 1) return nums2(len2 >> 1 + 1) else nums2(len2 >> 1)
+        } else if (len2 == 0) {
+            if ((len1 & 1) == 1) return nums1(len1 >> 1 + 1) else nums1(len1 >> 1)
+        }
+        var i = 0
+        var j = 0
+        val halfLen = (len1 + len2) >> 1
+        while (i < len1 && j < len2 && i + j == halfLen) {
+            if (nums1(i) <= nums2(j)) i += 1 else j += 1
+        }
+        if ((len1 & 1) == 0 && (len2 & 1) == 0) (nums1(i) + nums2(j)) / 2d
+        else if ((len1 & 1) == 1) nums1(i)
+        else nums2(j)
     }
-  }
 
 }

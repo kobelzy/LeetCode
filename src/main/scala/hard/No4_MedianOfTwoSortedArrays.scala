@@ -37,6 +37,11 @@ object No4_MedianOfTwoSortedArrays {
         } else if (len2 == 0) {
             if ((len1 & 1) == 1) return nums1(len1 >> 1 + 1) else nums1(len1 >> 1)
         }
+        if(nums1.head>nums2.last){
+
+        }else if(nums2.head>nums1.last){
+
+        }
         var i = 0
         var j = 0
         val halfLen = (len1 + len2) >> 1

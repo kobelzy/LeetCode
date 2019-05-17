@@ -23,13 +23,20 @@ nums2 = [3, 4]
  */
 object No4_MedianOfTwoSortedArrays {
     def main(args: Array[String]): Unit = {
-    println(findMedianSortedArrays(Array(2), Array(1,3,4,5,6))) //4.5
-        println(findMedianSortedArrays(Array(1, 3), Array(2, 4))) //2.5
-        println(findMedianSortedArrays(Array(1, 3), Array(2))) //2.0
-        println(findMedianSortedArrays(Array(1, 3), Array(2))) //2.0
-        println(findMedianSortedArrays(Array(1, 3), Array.empty[Int])) //2.0
+        println(findMedianSortedArrays0(Array(2), Array(1, 3, 4, 5, 6))) //4.5
+        println(findMedianSortedArrays0(Array(1, 3), Array(2, 4))) //2.5
+        println(findMedianSortedArrays0(Array(1, 3), Array(2))) //2.0
+        println(findMedianSortedArrays0(Array(1, 3), Array(2))) //2.0
+        println(findMedianSortedArrays0(Array(1, 3), Array.empty[Int])) //2.0
+        var i=100
     }
 
+    /**
+      * 最快
+      * @param nums1
+      * @param nums2
+      * @return
+      */
     def findMedianSortedArrays1(nums1: Array[Int], nums2: Array[Int]): Double = {
         val sorted = (nums1 ++ nums2).sorted
         val len = sorted.length
@@ -39,30 +46,42 @@ object No4_MedianOfTwoSortedArrays {
     }
 
     /**
-      * 我竟然一开始写这么复杂。。。。。。，没过。。。
+      * 这个第二快
       *
       * @param nums1
       * @param nums2
       * @return
       */
     def findMedianSortedArrays0(nums1: Array[Int], nums2: Array[Int]): Double = {
-
         val len1 = nums1.length
         val len2 = nums2.length
-        val isNum1Odd = (len1 & 1) == 1
-        val isNum2Odd = (len2 & 1) == 1
+        val len=len1+len2
+        val buffer = scala.collection.mutable.ArrayBuffer[Int]()
         var i = 0
         var j = 0
-        val halfLen = (len1 + len2 + 1) >> 1
-        while (i < len1 && j < len2 && i + j < halfLen) {
-            if (nums1(i) <= nums2(j)) i += 1 else j += 1
+        val halfLen = (len + 1) >> 1
+        //如果任意一个数组没有循环完，且加载过的数据没有超过一半（=是为了多加载一个数据，方便偶数个时候使用）
+        while ((i < len1 || j < len2) && i+j <= halfLen) {
+            if(i==len1){ //如果数组1走完了，那么数组二加入
+                buffer += nums2(j)
+                j+=1
+            }else if(j==len2){//如果数组二走完了，那么数组一加入
+                buffer += nums1(i)
+                i+=1
+            }else if (nums1(i) <= nums2(j)) { //如果数组一的值更小，将其加入
+                buffer += nums1(i)
+                i+=1
+            } else {
+                buffer +=nums2(j) //如果数组二的值更小，将其加入
+                j+=1
+            }
         }
-        if (isNum1Odd) nums1(i)
-        else if (isNum2Odd) nums2(j)
-        else (nums1(i) + nums2(j)) / 2d
-
+        if((len&1)==0){//偶数个
+            (buffer(buffer.length-2)+buffer.last)/2d
+        }else{ //奇数个的情况可能出现只有一个值，结果直接将其返回即可
+            if(buffer.length==1) buffer.last else   buffer(buffer.length-2)
+        }
     }
-
     /**
       * 使用快排,但是结果很慢。。。
       *
@@ -73,7 +92,7 @@ object No4_MedianOfTwoSortedArrays {
     def findMedianSortedArrays(nums1: Array[Int], nums2: Array[Int]): Double = {
         val nums = nums1 ++ nums2
         val len = nums.length
-        val midNum = (len >> 1) +1
+        val midNum = (len >> 1) + 1
         return if ((len & 1) == 1) {
             findKthLargest(nums, midNum).toDouble
         } else {
@@ -86,11 +105,11 @@ object No4_MedianOfTwoSortedArrays {
 
     def findKthLargest(nums: Array[Int], k: Int): Int = {
         val head = nums.head
-        val (leftAndHead,right)=nums.partition(_>=head)
-        val left=leftAndHead.filter(_!=head)
-        return  if (k <= left.length)  findKthLargest(left, k)
-        else if (k <= leftAndHead.length)  head
-        else findKthLargest(right,k-leftAndHead.length)
+        val (leftAndHead, right) = nums.partition(_ >= head)
+        val left = leftAndHead.filter(_ != head)
+        return if (k <= left.length) findKthLargest(left, k)
+        else if (k <= leftAndHead.length) head
+        else findKthLargest(right, k - leftAndHead.length)
     }
 
 

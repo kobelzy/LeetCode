@@ -1,6 +1,7 @@
 package easy
 
 /**
+  * 101. 对称二叉树
   * 给定一个二叉树，检查它是否是镜像对称的。
   *
   * 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
@@ -55,8 +56,7 @@ object No101_SymmetricTree {
   def run2(left: TreeNode, right: TreeNode): Boolean = {
     (left, right) match {
       case (null, null) => true
-      case (_, null) => false
-      case (null, _) => false
+      case (_, null)|(null, _) => false
       case (_, _) =>
         if (left.value == right.value)
           run(left.left, right.right) && run(left.right, right.left)

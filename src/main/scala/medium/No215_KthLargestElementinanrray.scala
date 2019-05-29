@@ -17,35 +17,36 @@ package medium
   */
 
 object No215_KthLargestElementinanrray {
-    def main(args: Array[String]): Unit = {
-        //        val arr=Array(3,2,1,5,6,4)
-        val arr = Array(1, 3, 2)
-//        val arr=Array(3,3,3,3,4,3,3,3,3)
-        println(findKthLargest(arr, 2))
-    }
+  def main(args: Array[String]): Unit = {
+    //        val arr=Array(3,2,1,5,6,4)
+    val arr = Array(1, 3, 2)
+    //        val arr=Array(3,3,3,3,4,3,3,3,3)
+    println(findKthLargest(arr, 2))
+  }
 
-    def findKthLargest1(nums: Array[Int], k: Int): Int = {
-        if (nums.length <= 2 && nums.head == nums.last) return nums.head
-        val (left, right) = nums.tail.partition(_ >= nums.head)
-        if (left.length >= k)
-            return findKthLargest1(left, k)
-        else
-            return findKthLargest1(right :+ nums.head, k - left.length)
-    }
+  def findKthLargest1(nums: Array[Int], k: Int): Int = {
+    if (nums.length <= 2 && nums.head == nums.last) return nums.head
+    val (left, right) = nums.tail.partition(_ >= nums.head)
+    if (left.length >= k)
+      return findKthLargest1(left, k)
+    else
+      return findKthLargest1(right :+ nums.head, k - left.length)
+  }
 
 
-    /**
-      * 该方案更快一些
-      * @param nums
-      * @param k
-      * @return
-      */
-    def findKthLargest(nums: Array[Int], k: Int): Int = {
-        val head = nums.head
-        val (leftAndHead,right)=nums.partition(_>=head)
-        val left=leftAndHead.filter(_!=head)
-       return  if (k <= left.length)  findKthLargest(left, k)
-        else if (k <= leftAndHead.length)  head
-        else findKthLargest(right,k-leftAndHead.length)
-    }
+  /**
+    * 该方案更快一些
+    *
+    * @param nums
+    * @param k
+    * @return
+    */
+  def findKthLargest(nums: Array[Int], k: Int): Int = {
+    val head = nums.head
+    val (leftAndHead, right) = nums.partition(_ >= head)
+    val left = leftAndHead.filter(_ != head)
+    if (k <= left.length) findKthLargest(left, k)
+    else if (k <= leftAndHead.length) head
+    else findKthLargest(right, k - leftAndHead.length)
+  }
 }

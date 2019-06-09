@@ -26,6 +26,7 @@ object No673_NumberOfLongestIncreasingSubsequence {
 
       }
     }
+    0
   }
 
 }

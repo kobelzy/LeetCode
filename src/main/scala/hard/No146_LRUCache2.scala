@@ -1,6 +1,5 @@
 package hard
 
-case class Node(key: Int, var value: Int, var next: Node = null, var pre: Node = null)
 
 class No146_LRUCache2(capacity: Int) {
   val map = scala.collection.mutable.Map[Int, Node]()

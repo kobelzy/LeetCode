@@ -37,6 +37,7 @@ object No6_ZigZagConversion {
 //val list=ListBuffer(1,2,3,4,5,6)
 //    list.insert(2,10)
 //    println(list)
+    println(Int.MaxValue)
   }
   def convert(s: String, numRows: Int): String = {
     /**

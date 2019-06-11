@@ -1,10 +1,9 @@
 package arithmetic;
 
-import scala.actors.threadpool.Arrays;
-import scala.collection.mutable.PriorityQueue$;
+
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.Arrays;
 
 /**
  * 最大堆

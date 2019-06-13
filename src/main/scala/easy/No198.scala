@@ -34,7 +34,7 @@ object No198 {
     * */
   def main(args: Array[String]): Unit = {
     val nums=Array(2,7,9,3,1)
-println(rob(nums))
+println(rob2(nums))
   }
   def rob(nums: Array[Int]): Int = {
     val len=nums.length
@@ -46,9 +46,36 @@ println(rob(nums))
     dp(0)=nums(0)
     dp(1)=math.max(nums(0),nums(1))
     dp(2)=math.max(nums(0)+nums(2),nums(1))
+    var max=dp(2)
     for(i<-3 until len){
       dp(i)=math.max(dp(i-2)+nums(i),dp(i-3)+nums(i))
+      if(dp(i)>max) max=dp(i)
     }
-    dp.last
+    max
+  }
+
+  /**
+    * 另一种提交方法
+    * @param nums
+    * @return
+    */
+  def rob2(nums: Array[Int]): Int = {
+
+    if(nums.isEmpty) return 0
+
+    //p[i] = max { p[0 .. i - 2] + m[i], p[i - 1] }
+
+    val p = new Array[Int](nums.length + 2)
+    p(0) = 0 //第一个元素用来保存 0
+    p(1) = 0 //第二个元素用来保存 0
+
+    for( i <- nums.indices) { //i 表示 p 的前一个
+      p(i + 2) = math.max(
+        p.slice(0,i + 1).max + nums(i),
+        p(i + 1)
+      )
+    }
+
+    p.last
   }
 }

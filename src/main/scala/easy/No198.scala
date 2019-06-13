@@ -46,11 +46,9 @@ println(rob(nums))
     dp(0)=nums(0)
     dp(1)=math.max(nums(0),nums(1))
     dp(2)=math.max(nums(0)+nums(2),nums(1))
-    var max=dp(2)
     for(i<-3 until len){
       dp(i)=math.max(dp(i-2)+nums(i),dp(i-3)+nums(i))
-      if(dp(i)>max) max=dp(i)
     }
-    max
+    dp.last
   }
 }

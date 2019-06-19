@@ -42,8 +42,8 @@ object No617 {
     if(t1==null && t2==null ) null
     else{
       val root=new TreeNode((if(t1==null) 0 else t1.value) +(if(t2==null) 0 else t2.value))
-      root.left=mergeTrees(t1.left,t2.left)
-      root.right=mergeTrees(t1.right,t2.right)
+      root.left=mergeTrees(if(t1==null) null else t1.left,if(t2==null) null else t2.left)
+      root.right=mergeTrees(if(t1==null) null else t1.right,if(t2==null) null else t2.right)
       root
     }
 

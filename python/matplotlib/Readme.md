@@ -66,3 +66,13 @@
     fig.savefig("file_name.png") #必须放在plt.show()之前，否则保存的图像是空的
     #可以通过如下命令查看系统支持的文件格式
     fig.canvas.get_supported_filetypes()    
+
+## 2 直方图
+
+    plplot.bar(x,height,width=0.8,bottom=None,*,align="center")
+        
+x表示很坐标数据，height是直方图的高度，一般都是一个列表或者序列
+width是指直方图的宽度，默认0.8，即80%
+bottom参数指直方图的底部在y坐标上的起点值，默认0
+*表示参数其他参数，比如颜色、边缘颜色、线宽、刻度标签等
+align参数表示直方图与数据的对齐方式，默认使用居中对齐，使用“edge”表示左对齐        

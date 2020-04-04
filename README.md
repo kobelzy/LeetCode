@@ -1,6 +1,7 @@
 # LeetCode
 
 
+
 ## Scala的世界观
 * Scala是如何看待编程和其中的问题的。Scala的目标，Scala的手段，Scala的效果。
 * 能在编译期做的约束和检查，就不要延迟到运行时。例如，ADT

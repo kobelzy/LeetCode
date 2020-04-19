@@ -15,6 +15,15 @@ public class No13_LongestCommonPrefix {
         return strs[0];
     }
 
+
+    /**
+     * 分治算法
+     * @param strs
+     * @return
+     */
+    public String longestCommonPrefix2(String[] strs) {
+
+    }
     public static void main(String[] args) {
         No13_LongestCommonPrefix test=new No13_LongestCommonPrefix();
         String[] strs={"flower","flow","fight"};

@@ -43,9 +43,9 @@ import java.util.Arrays;
  * print(nums[i]);
  * }
  */
-public class No26_RemoveDuplicatesfromSortedArray {
+public class No_26RemoveDuplicatesfromSortedArray {
     public static void main(String[] args) {
-        No26_RemoveDuplicatesfromSortedArray test = new No26_RemoveDuplicatesfromSortedArray();
+        No_26RemoveDuplicatesfromSortedArray test = new No_26RemoveDuplicatesfromSortedArray();
         int[] arr = new int[]{1, 1, 2};
         System.out.println(test.removeDuplicates(arr));
         System.out.println(Arrays.toString(arr));

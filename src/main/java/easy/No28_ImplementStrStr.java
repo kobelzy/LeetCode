@@ -1,5 +1,7 @@
 package easy;
 
+import java.util.Arrays;
+
 /**
  * 28. 实现 strStr()
  * 实现 strStr() 函数。
@@ -23,23 +25,43 @@ package easy;
 public class No28_ImplementStrStr {
     public static void main(String[] args) {
         No28_ImplementStrStr test=new No28_ImplementStrStr();
-        int res=test.strStr("hello","ll");
-                assert res==2;
+
+//        System.out.println(test.strStr("hello","ll"));
+        System.out.println(test.strStr("aaab","b"));
     }
+
+    /**
+     * 双指针判断
+     * @param haystack
+     * @param needle
+     * @return
+     */
     public int strStr(String haystack, String needle) {
         int haystackLen=haystack.length();
         int needleLen=needle.length();
         if(needleLen==0) return 0;
         if(haystackLen<needleLen) return -1;
-        for(int i=0;i<haystackLen-needleLen;i++){
-            if(haystack.charAt(i)==needle.charAt(0)){
+
+        char needleHead=needle.charAt(0);
+        for(int i=0;i<haystackLen-needleLen+1;i++){
+            if(haystack.charAt(i)==needleHead){
                 for(int j=0;j<needleLen;j++){
                     if(haystack.charAt(i+j)==needle.charAt(j)){
                         if(j==needleLen-1) return i;
-                    }
+                    }else break;
                 }
             }
         }
         return -1;
     }
-}
+
+    /**
+     * Rabin Karp 复杂度为常数
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public int strStr2(String haystack, String needle) {
+
+    }
+    }

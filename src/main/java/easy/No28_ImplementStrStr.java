@@ -26,8 +26,8 @@ public class No28_ImplementStrStr {
     public static void main(String[] args) {
         No28_ImplementStrStr test=new No28_ImplementStrStr();
 
-//        System.out.println(test.strStr("hello","ll"));
-        System.out.println(test.strStr("aaab","b"));
+        System.out.println(test.strStr("hello","ll"));
+        System.out.println(test.strStr2("aaab","b"));
     }
 
     /**
@@ -62,6 +62,32 @@ public class No28_ImplementStrStr {
      * @return
      */
     public int strStr2(String haystack, String needle) {
+        int needleLen=needle.length();
+        if(needleLen==0) return 0;
+        int[] next=getNexts(needle.toCharArray());
+        int j=0;
+        for(int i=0;i<haystack.length();++i){
+            while(j>0 && haystack.charAt(i)!=needle.charAt(j)){
+                j=next[j-1]+1;
+            }
+            if(haystack.charAt(i)==needle.charAt(j)) ++j;
+            if(j==needleLen) return i-needleLen+1;
+        }
+        return -1;
+    }
 
+    private static int[] getNexts(char[] b){
+        int len=b.length;
+        int[] next=new int[len];
+        next[0]=-1;
+        int k=-1;
+        for(int i=1;i<len;++i){
+            while(k!=-1 && b[k+1] !=b[i]){
+                k=next[k];
+            }
+            if(b[k+1]==b[i]) ++k;
+            next[i]=k;
+        }
+        return next;
     }
     }

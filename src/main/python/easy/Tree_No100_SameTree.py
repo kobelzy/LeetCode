@@ -56,6 +56,27 @@ class Solution(object):
             return func(p.left, q.left) and func(p.right, q.right)
         return func(p,q)
 
+    def isSameTree2( p: TreeNode, q: TreeNode) -> bool:
+        from collections import deque
+        """
+        第二种方法：迭代
+        """
+        def check(p,q):
+            if not p and not q:  # q和p都是None
+                return True
+            if p is None or q is None:
+                return False
+            if p.val != q.val:
+                return False
+        deq=deque([(p,q)])
+        while deq:
+            p,q=deq.popleft()
+            if not check(p,q):
+                return False
+            if p:
+                deq.append((p.left,q.left))
+                deq.append((p.right,q.right))
+        return True
     if __name__ == '__main__':
         ln1 = TreeNode(1)
         ln2 = TreeNode(2)
@@ -69,5 +90,5 @@ class Solution(object):
         rn1.left = rn2
         rn1.right = rn3
 
-        res = isSameTree(ln1, rn1)
+        res = isSameTree2(ln1, rn1)
         print(res)

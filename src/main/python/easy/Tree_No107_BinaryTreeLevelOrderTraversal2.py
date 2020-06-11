@@ -30,7 +30,6 @@ class Solution:
         res=[]
         while nodes:
             node_val=(val.val for val in nodes)
-            res.insert(0,node_val)
             next_nodes=[]
             cur_val=[]
             for node in nodes:
@@ -50,6 +49,7 @@ class Solution:
         second20.left=TreeNode(15)
         second20.right=TreeNode(7)
         res=levelOrderBottom(root)
+        print(len(res))
         for node in res:
             print(node)
 

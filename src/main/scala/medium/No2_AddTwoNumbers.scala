@@ -17,13 +17,14 @@ package medium
   * Date Created by： 9:31 on 2019/3/25
   * Modified By：
   */
-class ListNode(var _x: Int = 0) {
-  var next: ListNode = null
-  var x: Int = _x
-}
+
 
 object No2_AddTwoNumbers {
 
+  class ListNode(var _x: Int = 0) {
+    var next: ListNode = null
+    var x: Int = _x
+  }
   def main(args: Array[String]): Unit = {
     val l1 = new ListNode(2)
     l1.next = new ListNode(4)

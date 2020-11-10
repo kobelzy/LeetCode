@@ -87,14 +87,15 @@ public class No142_LinkedListCycleII {
      * 2(a+b)=a+(n+1)b+nc =>
      * a=(n-1)b+nc=(n-1)(b+c)+c
      * 而b+c是环总长，
-     * 那么在快慢指针碰上之后，慢节点已经走过了c的长度，让慢节点继续走n-1圈的距离就是a，也就是环开始的节点
+     * 那么在快慢指针碰上之后，慢节点已经走过了b的长度，让慢节点继续走n-1圈的距离就是a，也就是环开始的节点
+     * 所以同时启动两个节点从b，头部开始走，最终相交的点就是橡胶垫
      */
     public ListNode detectCycle2(ListNode head) {
         if(head==null ||head.next==null) return null;
 
         ListNode fast=head;
         ListNode slow=head;
-        while(fast.next!=null){
+        while(fast!=null){
             slow=slow.next;
             fast=fast.next;
             if(fast.next==null) return null;

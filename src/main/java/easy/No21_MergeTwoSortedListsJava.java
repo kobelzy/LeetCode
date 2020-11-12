@@ -46,19 +46,19 @@ public class No21_MergeTwoSortedListsJava {
 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode cur = new ListNode(0);
-        ListNode head=cur;
+        ListNode head = cur;
         ListNode left = l1;
         ListNode right = l2;
         while (left != null || right != null) {
             if (left != null && right != null) {
-                if(left.val<=right.val) {
+                if (left.val <= right.val) {
                     cur.next = left;
                     left = left.next;
-                }else {
-                    cur.next=right;
-                right=right.next;
+                } else {
+                    cur.next = right;
+                    right = right.next;
                 }
-            } else if ( left== null) {
+            } else if (left == null) {
                 cur.next = right;
                 right = right.next;
             } else {
@@ -66,9 +66,33 @@ public class No21_MergeTwoSortedListsJava {
                 left = left.next;
                 //current2==null
             }
-            cur=cur.next;
+            cur = cur.next;
         }
         return head.next;
+    }
+
+    /**
+     * 速度更快！！！！！
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
+        ListNode preHead = new ListNode(0);
+        ListNode cur = preHead;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+
+        cur.next = l1 == null ? l2 : l1;
+        return preHead.next;
     }
 
 }

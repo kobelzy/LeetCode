@@ -17,8 +17,12 @@ class ListNode {
 public class No19_RemoveNthNodeFromEndOfListJava {
 
 
-
-
+    /**
+     * 双指针，指针1正向走n个，剩下的count-n的长度，就是倒数第n个
+     * @param head
+     * @param n
+     * @return
+     */
     public ListNode removeNthFromEnd(ListNode head, int n) {
         //删除节点的情况下，引入一个head前节点，更方便
         //同时也可以用该节点向后循环，进行删除

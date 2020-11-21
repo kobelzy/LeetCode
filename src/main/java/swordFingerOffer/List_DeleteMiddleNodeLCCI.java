@@ -8,8 +8,7 @@ package swordFingerOffer;
  * 输入：单向链表a->b->c->d->e->f中的节点c
  * 结果：不返回任何数据，但该链表变为a->b->d->e->f
  */
-public class List_DeleteMiddleNodeLCCI {
-    public class ListNode {
+     class ListNode {
         int val;
         ListNode next;
 
@@ -25,6 +24,7 @@ public class List_DeleteMiddleNodeLCCI {
                     '}';
         }
     }
+public class List_DeleteMiddleNodeLCCI {
     public static void main(String[] args) {
         new List_DeleteMiddleNodeLCCI().run();
     }

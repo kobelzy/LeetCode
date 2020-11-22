@@ -24,13 +24,11 @@ public class List_18DeleteListNode {
     public ListNode deleteNode(ListNode head, int val) {
         ListNode preHead=new ListNode(-1),cur=preHead;
         preHead.next=head;
-        while(cur!=null){
-            if(cur.val==val){
-                if(cur.next!=null){
-                    cur.val=cur.next.val;
-                    cur.next=cur.next.next;
-                }else cur.next=null;
+        while(cur!=null &&cur.next!=null){
+            if(cur.next.val==val){
+                cur.next=cur.next.next;
             }
+            cur=cur.next;
         }
         return preHead.next;
     }

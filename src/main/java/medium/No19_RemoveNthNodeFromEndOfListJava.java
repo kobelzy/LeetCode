@@ -8,10 +8,7 @@ class ListNode {
 
     @Override
     public String toString() {
-        return "ListNode{" +
-                "val=" + val +
-                ", next=" + next +
-                '}';
+        return "[v=" + val +", next="+ next +']';
     }
 }
 public class No19_RemoveNthNodeFromEndOfListJava {

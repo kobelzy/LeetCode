@@ -1,7 +1,5 @@
 package medium;
 
-import swordFingerOffer.List_DeleteMiddleNodeLCCI;
-
 /**
  * 82. 删除排序链表中的重复元素 II
  * 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。
@@ -22,13 +20,15 @@ public class No82_RemoveDuplicatesFromSortedListII {
         new No82_RemoveDuplicatesFromSortedListII().run();
     }
     public void run(){
-        ListNode l4=new ListNode(2);
+        ListNode l5=new ListNode(3);
+        ListNode l4=new ListNode(3);
         ListNode l3=new ListNode(2);
         ListNode l2=new ListNode(2);
         ListNode l1=new ListNode(1);
         l1.next=l2;
         l2.next=l3;
         l3.next=l4;
+        l4.next=l5;
         System.out.println(deleteDuplicates(l1));
     }
     public ListNode deleteDuplicates(ListNode head) {

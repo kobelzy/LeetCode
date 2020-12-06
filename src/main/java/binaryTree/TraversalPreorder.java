@@ -1,5 +1,7 @@
 package binaryTree;
 
+import other.Tree;
+
 import java.util.*;
 
 class TreeNode {
@@ -54,7 +56,8 @@ public class TraversalPreorder {
      */
     public List<Integer> preorderTraversal1(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
-        Deque<TreeNode> stack = new LinkedList<TreeNode>(); //这是一种双端队列
+//        Deque<TreeNode> stack = new LinkedList<TreeNode>(); //这是一种双端队列
+        Stack<TreeNode> stack=new Stack<>();
         TreeNode node = root;
         while (!stack.isEmpty() || node != null) {
             while (node != null) {
@@ -62,8 +65,7 @@ public class TraversalPreorder {
                 stack.push(node);
                 node = node.left;
             }
-            node = stack.pop();
-            node = node.right;
+            node = stack.pop().right;
         }
         return res;
     }
@@ -83,46 +85,6 @@ public class TraversalPreorder {
 
 
     /*---------------------------------------------中序遍历---------------------------------------------------*/
-
-
-    List<Integer> recursionInOrderRes = new ArrayList<>();
-
-    /**
-     * 中序遍历：递归
-     *
-     * @param root
-     * @return
-     */
-    public List<Integer> inorderTraversalRecusion(TreeNode root) {
-        if (root == null) return recursionInOrderRes;
-        inorderTraversalRecusion(root.left);
-        recursionInOrderRes.add(root.val);
-        inorderTraversalRecusion(root.right);
-        return recursionInOrderRes;
-    }
-
-    /**
-     * 中序遍历：迭代1
-     * @param root
-     * @return
-     */
-    public List<Integer> inorderTraversal1(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode node = root;
-        while (node != null || !stack.isEmpty()) {
-            if (node != null) {
-                stack.push(node);
-                node = node.left;
-            } else {
-                node = stack.pop();
-                list.add(node.val);
-                node = node.right;
-            }
-        }
-        return list;
-    }
-
     /**
      * 中序遍历：迭代2
      * @param root
@@ -144,9 +106,74 @@ public class TraversalPreorder {
         return res;
     }
 
+    List<Integer> recursionInOrderRes = new ArrayList<>();
+
+    /**
+     * 中序遍历：递归
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversalRecusion(TreeNode root) {
+        if (root == null) return recursionInOrderRes;
+        inorderTraversalRecusion(root.left);
+        recursionInOrderRes.add(root.val);
+        inorderTraversalRecusion(root.right);
+        return recursionInOrderRes;
+    }
+
+
+
 
 
 
     /*---------------------------------------------后序遍历---------------------------------------------------*/
 
+    /**
+     * 后序遍历1
+     * @param root
+     * @return
+     */
+    public List<Integer> postorderTraversal1(TreeNode root) {
+        List<Integer> res=new ArrayList<>();
+        if(root==null) return res;
+        Stack<TreeNode> stack=new Stack<>();
+        while(!stack.isEmpty()|| root!=null){
+            while(root!=null){
+                res.add(root.val);
+                stack.push(root);
+                root=root.right;
+            }
+            root=stack.pop().left;
+        }
+        Collections.reverse(res);
+        return res;
+    }
+
+    /**
+     * 后序遍历2
+     * @param root
+     * @return
+     */
+    public List<Integer> postorderTraversal2(TreeNode root) {
+        List<Integer> result = new LinkedList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode pre = null;
+        while (root != null || !stack.isEmpty()){
+            while(root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            TreeNode node = stack.pop();
+            if (node.right == null || pre == node.right){
+                result.add(node.val);
+                pre = node;
+            }
+            else{
+                stack.push(node);
+                root = node.right;
+            }
+        }
+        return result;
+    }
 }

@@ -51,9 +51,17 @@ public class No160_IntersectionOfTwoLinkedLists {
         }
     }
 
+    /**
+     * 走完当前链表后指向另一个链表的头部，原因是链表走过两个链表的长度是固定的，
+     * A和B不重合部分，相加起来是一个固定值，
+     * @param headA
+     * @param headB
+     * @return
+     */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
     ListNode curA=headA;
     ListNode curB=headB;
+    //如果不相交，最终会走为null
     while(curA!=curB){
         curA= curA==null ?headB :curA.next;
         curB= curB==null ?headA :curB.next;

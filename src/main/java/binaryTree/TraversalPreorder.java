@@ -1,6 +1,5 @@
 package binaryTree;
 
-import other.Tree;
 
 import java.util.*;
 
@@ -25,7 +24,6 @@ class TreeNode {
 
 /**
  * 前中后序遍历
- *
  */
 public class TraversalPreorder {
     /*---------------------------------------------前序遍历---------------------------------------------------*/
@@ -61,7 +59,7 @@ public class TraversalPreorder {
     public List<Integer> preorderTraversal1(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
 //        Deque<TreeNode> stack = new LinkedList<TreeNode>(); //这是一种双端队列
-        Stack<TreeNode> stack=new Stack<>();
+        Stack<TreeNode> stack = new Stack<>();
         TreeNode node = root;
         while (!stack.isEmpty() || node != null) {
             while (node != null) {
@@ -89,8 +87,10 @@ public class TraversalPreorder {
 
 
     /*---------------------------------------------中序遍历---------------------------------------------------*/
+
     /**
      * 中序遍历：迭代2
+     *
      * @param root
      * @return
      */
@@ -135,27 +135,54 @@ public class TraversalPreorder {
 
     /**
      * 后序遍历1
+     *
      * @param root
      * @return
      */
-    public List<Integer> postorderTraversal1(TreeNode root) {
-        List<Integer> res=new ArrayList<>();
-        if(root==null) return res;
-        Stack<TreeNode> stack=new Stack<>();
-        while(!stack.isEmpty()|| root!=null){
-            while(root!=null){
-                res.add(root.val);
-                stack.push(root);
-                root=root.right;
-            }
-            root=stack.pop().left;
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            res.add(cur.val);
+            if (cur.left != null) stack.push(cur.left);
+            if (cur.right != null) stack.push(cur.right);
         }
         Collections.reverse(res);
         return res;
     }
 
+
     /**
      * 后序遍历2
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> postorderTraversal1(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        while (!stack.isEmpty() || root != null) {
+            while (root != null) {
+                res.add(root.val);
+                stack.push(root);
+                root = root.right;
+            }
+            root = stack.pop().left;
+        }
+        Collections.reverse(res);
+        return res;
+    }
+
+
+
+
+    /**
+     * 后序遍历2
+     *
      * @param root
      * @return
      */
@@ -163,17 +190,16 @@ public class TraversalPreorder {
         List<Integer> result = new LinkedList<>();
         Deque<TreeNode> stack = new LinkedList<>();
         TreeNode pre = null;
-        while (root != null || !stack.isEmpty()){
-            while(root != null){
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
                 stack.push(root);
                 root = root.left;
             }
             TreeNode node = stack.pop();
-            if (node.right == null || pre == node.right){
+            if (node.right == null || pre == node.right) {
                 result.add(node.val);
                 pre = node;
-            }
-            else{
+            } else {
                 stack.push(node);
                 root = node.right;
             }

@@ -1,16 +1,5 @@
-package medium;
-class ListNode {
-    int val;
-    ListNode next;
-    public ListNode() {}
-    public ListNode(int val) { this.val = val; }
-    public ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+package list;
 
-    @Override
-    public String toString() {
-        return "[v=" + val +", next="+ next +']';
-    }
-}
 public class No19_RemoveNthNodeFromEndOfListJava {
 
 

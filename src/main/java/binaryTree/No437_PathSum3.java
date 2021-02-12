@@ -1,4 +1,4 @@
-package easy;
+package binaryTree;
 
 /**
  * 437. 路径总和 III

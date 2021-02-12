@@ -1,4 +1,4 @@
-package easy;
+package list;
 
 /**
  * 21. 合并两个有序链表
@@ -17,11 +17,14 @@ class ListNode {
         val = x;
     }
 
+    ListNode(int x, ListNode next) {
+        this.val = x;
+        this.next = next;
+    }
+
     @Override
     public String toString() {
-        return "{val=" + val +
-                ", next=" + next +
-                '}';
+        return "{val=" + val + ", next=" + next + '}';
     }
 }
 
@@ -73,6 +76,7 @@ public class No21_MergeTwoSortedListsJava {
 
     /**
      * 速度更快！！！！！
+     *
      * @param l1
      * @param l2
      * @return

@@ -1,4 +1,4 @@
-package easy;
+package list;
 
 /**
  * 234. 回文链表
@@ -23,22 +23,6 @@ public class No234_PalindromeLinkedList {
         n1.next=n2;
         No234_PalindromeLinkedList test =new No234_PalindromeLinkedList();
         System.out.println(test.isPalindrome(n1));
-    }
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-
-        @Override
-        public String toString() {
-            return "ListNode{" +
-                    "val=" + val +
-                    ", next=" + next +
-                    '}';
-        }
     }
 
     public boolean isPalindrome(ListNode head) {

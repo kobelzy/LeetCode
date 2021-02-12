@@ -1,4 +1,4 @@
-package medium;
+package list;
 
 
 import java.util.HashSet;

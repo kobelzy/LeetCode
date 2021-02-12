@@ -1,4 +1,4 @@
-package medium;
+package list;
 
 /**
  * 给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。
@@ -26,19 +26,6 @@ package medium;
  */
 
 public class No61_RotateList {
-    public class ListNode {
-        int val;
-         ListNode next;
-        ListNode(int x) { val = x; }
-
-        @Override
-        public String toString() {
-            return "ListNode{" +
-                    "val=" + val +
-                    ", next=" + next +
-                    '}';
-        }
-    }
 
 
     public static void main(String[] args) {

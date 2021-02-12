@@ -1,4 +1,4 @@
-package medium;
+package list;
 
 /**
  * 92. 反转链表 II
@@ -13,19 +13,6 @@ package medium;
  * 输出: 1->4->3->2->5->NULL
  */
 public class No92_ReverseLinkedList2 {
-    public class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
-
-        @Override
-        public String toString() {
-            return "ListNode{" +
-                    "val=" + val +
-                    ", next=" + next +
-                    '}';
-        }
-    }
     public static void main(String[] args) {
        new No92_ReverseLinkedList2().run();
     }

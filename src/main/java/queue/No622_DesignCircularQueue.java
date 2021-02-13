@@ -24,7 +24,7 @@ package queue;
  * circularQueue.enQueue(4);  // 返回 true
  * circularQueue.Rear();  // 返回 4
  */
-public class No_622DesignCircularQueue {
+public class No622_DesignCircularQueue {
     /**
      * 通过这个公式，可以计算得出尾部的索引
      * tailIndex=(headIndex+count−1)modcapacity
@@ -34,7 +34,7 @@ public class No_622DesignCircularQueue {
     int count;
     int capacity;
 
-    public No_622DesignCircularQueue(int k) {
+    public No622_DesignCircularQueue(int k) {
         data = new int[k];
         headPointer = 0;
         count = 0;

@@ -1,4 +1,4 @@
-package easy;
+package list;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,32 +30,24 @@ import java.util.Set;
  * 解释：链表中没有环。
  */
 public class No141_LinkedListCycle {
-    class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-    }
 
     /**
-     * 双指针
+     * 快慢指针指针
      * @param head
      * @return
      */
     public boolean hasCycle(ListNode head) {
 
         if(head==null||head.next==null) return false;
-        ListNode fPointer = head;
-        ListNode sPointer = head;
-        while (sPointer.next != null) {
-            fPointer = fPointer.next;
-            sPointer = sPointer.next;
-            if (sPointer.next != null) sPointer = sPointer.next;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+            if (fast.next != null) fast = fast.next;
             else return false;
-            if (sPointer == fPointer) return true;
+            if (fast == slow) return true;
         }
         return false;
     }

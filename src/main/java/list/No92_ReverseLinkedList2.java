@@ -33,8 +33,9 @@ public class No92_ReverseLinkedList2 {
         ListNode preHead=new ListNode(-1);
         preHead.next=head;
         ListNode cur = preHead;
-        for (int i = 0; i < m-1; i++) cur = cur.next;
-        cur.next=reverse(cur.next,n-m+1);
+        //m、n的下标是从1开始的；
+        for (int i = 1; i < m; i++) cur = cur.next;
+        cur.next=reverse(cur.next,n-m+1);//包含尾部
         return preHead.next;
     }
 
@@ -48,8 +49,7 @@ public class No92_ReverseLinkedList2 {
             prev=cur;
             cur=tmp;
         }
-        //reverseTail.next=head
-        head.next=cur;
+        head.next=cur; //将剩余不需要反转的部分直接串联起来
         return prev;
     }
 }

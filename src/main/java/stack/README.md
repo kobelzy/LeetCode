@@ -4,3 +4,4 @@
 
     stack.push(cur) //入栈
     stack.pop() //出栈
+    stack.peek() //查看栈顶元素

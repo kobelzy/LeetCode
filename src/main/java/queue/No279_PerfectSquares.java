@@ -63,20 +63,16 @@ public class No279_PerfectSquares {
             int size=queue.size();
             for (int i = 0; i < size; i++) {
                 int cur=queue.poll();
-//                for (int j = 1; j*j+cur <= n; j++) {
-//                    int next=j*j+cur;
-//                    if(next==n) return step;
-//                    if(!visited.contains(next)){
-//                        visited.add(next);
-//                        queue.offer(next);
-//                    }
-//                }
-
-                int maxSqrt = (int) Math.sqrt(cur);
-                if (maxSqrt * maxSqrt == cur) return step;
-                for (int j = maxSqrt; j > 0; i--) queue.add(cur - i * i); // 倒序，先遍历大的数据，因为 1 节点永远满足
+                for (int j = 1; j*j+cur <= n; j++) {
+                    int next=j*j+cur;
+                    if(next==n) return step;
+                    if(!visited.contains(next)){
+                        visited.add(next);
+                        queue.offer(next);
+                    }
+                }
             }
         }
-        return -1;
+        return n;
     }
 }

@@ -1,4 +1,4 @@
-package easy;
+package stack;
 
 import java.util.*;
 

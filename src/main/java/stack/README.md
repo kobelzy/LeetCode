@@ -37,6 +37,27 @@ DFS更早访问的结点可能不是更靠近根结点的结点。因此，在 D
     }
 
 
+⚠️ 使用递归的方式，有个缺点，就是调用栈太深的话，就可能会导致栈溢出，那么可以显式的使用栈来计算：
+
+
+    boolean DFS(int root, int target) {
+        Set<Node> visited;
+        Stack<Node> s;
+        add root to s;
+        while (s is not empty) {
+            Node cur = the top element in s;
+            return true if cur is target;
+            for (Node next : the neighbors of cur) {
+                if (next is not in visited) {
+                    add next to s;
+                    add next to visited;
+                }
+            }
+            remove cur from s;
+        }
+        return false;
+    }
+
 ## DFS网格遍历代码模版
 
 链接：https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/

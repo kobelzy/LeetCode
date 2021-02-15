@@ -77,4 +77,41 @@ public class No200_NumberOfIslands {
         }
         return islands;
     }
-}
+
+    int rows;
+    int cols;
+    /**
+     *  基于栈的DFS解法，速度很快，击败100%；
+     * @param grid
+     * @return
+     */
+    public int numIslands2(char[][] grid) {
+        rows=grid.length;
+        cols=grid[0].length;
+        int islands=0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if(grid[i][j]=='1'){
+                    islands++;
+                    dfs(grid,i,j);
+                }
+            }
+        }
+        return islands;
+    }
+
+    /**
+     * DFS递归处理
+     * @param grid
+     * @param i
+     * @param j
+     */
+    private void dfs(char[][] grid,int i,int j){
+        if(i<0||j<0||i>=rows||j>=cols || grid[i][j]=='0') return;
+        grid[i][j]='0';
+        dfs(grid,i-1,j);
+        dfs(grid,i+1,j);
+        dfs(grid,i,j-1);
+        dfs(grid,i,j+1);
+    }
+    }

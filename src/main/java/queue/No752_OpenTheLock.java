@@ -1,9 +1,6 @@
 package queue;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -48,8 +45,7 @@ public class No752_OpenTheLock {
      * @return
      */
     public int openLock(String[] deadends, String target) {
-        Set<String> deadSet = new HashSet<>();
-        for (String deadend : deadends) deadSet.add(deadend);
+        Set<String> deadSet = new HashSet<>(Arrays.asList(deadends));
 
         Set<String> visited = new HashSet<>();
         Queue<String> queue = new LinkedList<>();

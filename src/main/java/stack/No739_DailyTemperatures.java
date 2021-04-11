@@ -12,7 +12,7 @@ public class No739_DailyTemperatures {
 
     /**
      * 单调栈
-     *
+     *是O(n)的复杂度
      * @param T
      * @return
      */

@@ -23,11 +23,13 @@ public class No20_ValidParentheses_Java {
 
     public boolean isValid(String s) {
         int len = s.length();
-        if((len & 1) ==1) return false;
-        Map<Character, Character> map = new HashMap<>(3);
-        map.put('(', ')');
-        map.put('[', ']');
-        map.put('{', '}');
+        if ((len & 1) == 1) return false;
+        Map<Character, Character> map = new HashMap<Character, Character>(3) {{
+            put('(', ')');
+            put('[', ']');
+            put('{', '}');
+        }};
+
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < len; i++) {
             char c = s.charAt(i);
@@ -36,7 +38,7 @@ public class No20_ValidParentheses_Java {
                 if (!(!stack.isEmpty() && map.get(stack.pop()) == c)) return false;
             }
             //可选，如果超过长度一半，那么后边如论如何都无法消除所有括号
-            if(stack.size()>(len>>1)) return false;
+            if (stack.size() > (len >> 1)) return false;
         }
         return stack.isEmpty();
     }

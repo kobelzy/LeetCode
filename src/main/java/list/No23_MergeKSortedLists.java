@@ -1,30 +1,8 @@
-package hard;
+package list;
 
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    public ListNode() {
-    }
-
-    public ListNode(int val) {
-        this.val = val;
-    }
-
-    public ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
-    }
-
-    @Override
-    public String toString() {
-        return "[v=" + val + ", next=" + next + ']';
-    }
-}
 
 /**
  * 23. 合并K个升序链表
@@ -75,7 +53,6 @@ public class No23_MergeKSortedLists {
         for (ListNode list : lists) {
             if (list != null) pq.add(list);
         }
-
 //        while (pq.peek() != null) { //这种方法也可以
         while (!pq.isEmpty()) {
             ListNode tmp = pq.poll();
@@ -84,7 +61,5 @@ public class No23_MergeKSortedLists {
             cur=cur.next;
         }
         return preHead.next;
-
-
     }
 }

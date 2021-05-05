@@ -19,16 +19,49 @@ package dp;
  * 0 <= nums[i] <= 400
  */
 public class No198_HouseRobber {
+
+    /**
+     * 状态转移方程 dp[i]=max(dp[i-2]+nums[i],dp[i-1])
+     * 边界为: dp[0] 和dp[1]
+     * @param nums
+     * @return
+     */
+    public int rob1(int[] nums) {
+        int len = nums.length;
+        if (len == 0) return 0;
+        if (len == 1) return nums[0];
+        int[] dp = new int[len];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < len; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+        }
+        return dp[len - 1];
+    }
+
+
+    /**
+     * 状态转移方程：dp[i]=max(dp[i-2]+nums[i],dp[i-3]+nums[i]
+     * 边界条件：dp[0],dp[1],dp[2]
+     * @param nums
+     * @return
+     */
     public int rob(int[] nums) {
-        int[] dp = new int[nums.length];
+        int len = nums.length;
+        if (len == 0) return 0;
+        if (len == 1) return nums[0];
+        if (len == 2) return Math.max(nums[0], nums[1]);
+        int[] dp = new int[len];
         dp[0] = nums[0];
         dp[1] = Math.max(nums[0], nums[1]);
         dp[2] = Math.max(nums[0] + nums[2], nums[1]);
         int max = dp[2];
-        for (int i = 3; i < nums.length; i++) {
+        for (int i = 3; i < len; i++) {
             dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 3] + nums[i]);
             max = Math.max(max, dp[i]);
         }
         return max;
     }
+
+
 }

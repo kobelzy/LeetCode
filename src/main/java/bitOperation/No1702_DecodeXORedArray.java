@@ -1,4 +1,4 @@
-package easy;
+package bitOperation;
 
 /**
  * 1720. 解码异或后的数组

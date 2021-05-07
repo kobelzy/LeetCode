@@ -30,7 +30,8 @@ public class No240_Search2DMatrixII {
         int[] nums = {1, 2, 3, 10, 18};
         No240_Search2DMatrixII t = new No240_Search2DMatrixII();
         System.out.println(t.binarySearch(nums, 5));
-        System.out.println(t.searchFirstElement(nums, 5));
+        System.out.println(t.searchLastElement(nums, 19));
+        System.out.println(t.searchFirstElement(nums, 19));
 
 
         int[][] matrix = {
@@ -43,6 +44,38 @@ public class No240_Search2DMatrixII {
 
     }
 
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0) return false;
+
+        int shorterDim = Math.min(matrix.length, matrix[0].length);
+        for (int i = 0; i < shorterDim; i++) {
+            boolean verticalFound=binarySearch(matrix,target,i,true);
+            boolean horizontalFound=binarySearch(matrix,target,i,false);
+            if(verticalFound||horizontalFound) return true;
+        }
+        return false;
+    }
+
+    private boolean binarySearch(int[][] nums, int target, int start, boolean vertical) {
+        int left=start;
+        int right=vertical?nums[0].length-1:nums.length-1;
+
+        while(right>=left){
+            int mid=left+((right-left)>>1);
+            if(vertical){
+                if(nums[start][mid]<target)left=mid+1;
+                else if(nums[start][mid]>target) right=mid-1;
+                else return true;
+            }else{
+                if(nums[mid][start]<target) left=mid+1;
+                else if(nums[mid][start]>target) right=mid-1;
+                else return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 二分查找解法
      *
@@ -50,25 +83,58 @@ public class No240_Search2DMatrixII {
      * @param target
      * @return
      */
-    public boolean searchMatrix(int[][] matrix, int target) {
-        int rowNum = matrix.length, colNum = matrix[0].length;
+    public boolean searchMatrix2(int[][] matrix, int target) {
+        int len = matrix.length;
         //第一，找到所在行，n<=x && x>n+1
-        int[] firstCol = new int[rowNum];
-        for (int i = 0; i < rowNum; i++) firstCol[i] = matrix[i][0];
-        int targetRow = searchFirstElement(firstCol, target);
-        if (targetRow == -1) return false;
-        int targetCol = binarySearch(matrix[targetRow], target);
-        return targetCol != -1;
+        int[] diagonals = new int[len];
+        for (int i = 0; i < len; i++) diagonals[i] = matrix[i][i];
+        int end = searchFirstElement(diagonals, target);
+        int start = searchLastElement(diagonals, target);
+        System.out.println(start + "," + end);
+        if (start == -1 || end == -1) return false;
+        if (start == end) return true;
+        for (int i = start; i <= end; i++) {
+            if (binarySearch(matrix[i], target) != -1) return true;
+        }
+
+//        if (targetRow == -1) return false;
+//        int targetCol = binarySearch(matrix[targetRow], target);
+//        return targetCol != -1;
+        return false;
     }
 
     /**
      * 搜索第一个大于等于该target的下标
+     * 1，2，4，5 求3，返回4位置
+     * 最后一个小于等于target的
      *
      * @param nums
      * @param target
      * @return
      */
     private int searchFirstElement(int[] nums, int target) {
+        int len = nums.length, left = 0, right = len - 1;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] >= target) {
+                if (mid == 0 || nums[mid - 1] < target) return mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 1，2，4，5 求3，返回2位置
+     * 最后一个小于等于target的
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    private int searchLastElement(int[] nums, int target) {
         int len = nums.length, left = 0, right = len - 1;
         while (left <= right) {
             int mid = left + ((right - left) >> 1);

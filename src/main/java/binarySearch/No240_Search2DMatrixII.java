@@ -40,59 +40,70 @@ public class No240_Search2DMatrixII {
                 {3, 6, 9, 16, 22},
                 {10, 13, 14, 17, 24},
                 {18, 21, 23, 26, 30}};
-        System.out.println(t.searchMatrix(matrix, 5));
+
+        System.out.println(t.searchMatrix2(matrix, 5));
+        int[][] matrix2 = {
+                {2, 5},
+                {2, 8},
+                {7, 9},
+                {7, 11},
+                {9, 11}};
+        System.out.println(t.searchMatrix2(matrix2, 7));
 
     }
 
-
+    /**
+     * 标准二分解法
+     *
+     * @param matrix
+     * @param target
+     * @return
+     */
     public boolean searchMatrix(int[][] matrix, int target) {
         if (matrix == null || matrix.length == 0) return false;
 
         int shorterDim = Math.min(matrix.length, matrix[0].length);
         for (int i = 0; i < shorterDim; i++) {
-            boolean verticalFound=binarySearch(matrix,target,i,true);
-            boolean horizontalFound=binarySearch(matrix,target,i,false);
-            if(verticalFound||horizontalFound) return true;
+            boolean verticalFound = binarySearch(matrix, target, i, true);
+            boolean horizontalFound = binarySearch(matrix, target, i, false);
+            if (verticalFound || horizontalFound) return true;
         }
         return false;
     }
 
     private boolean binarySearch(int[][] nums, int target, int start, boolean vertical) {
-        int left=start;
-        int right=vertical?nums[0].length-1:nums.length-1;
+        int left = start;
+        int right = vertical ? nums[0].length - 1 : nums.length - 1;
 
-        while(right>=left){
-            int mid=left+((right-left)>>1);
-            if(vertical){
-                if(nums[start][mid]<target)left=mid+1;
-                else if(nums[start][mid]>target) right=mid-1;
-                else return true;
-            }else{
-                if(nums[mid][start]<target) left=mid+1;
-                else if(nums[mid][start]>target) right=mid-1;
-                else return true;
-            }
+        while (right >= left) {
+            int mid = left + ((right - left) >> 1);
+            int cur=vertical?nums[start][mid]:nums[mid][start];
+            if (cur < target) left = mid + 1;
+            else if (cur > target) right = mid - 1;
+            else return true;
         }
         return false;
     }
 
     /**
-     * 二分查找解法
+     * 二分查找解法，无效，逻辑有问题
      *
      * @param matrix
      * @param target
      * @return
      */
     public boolean searchMatrix2(int[][] matrix, int target) {
-        int len = matrix.length;
+        int shorterDim = Math.min(matrix.length, matrix[0].length);
+
         //第一，找到所在行，n<=x && x>n+1
-        int[] diagonals = new int[len];
-        for (int i = 0; i < len; i++) diagonals[i] = matrix[i][i];
+        int[] diagonals = new int[shorterDim];
+        for (int i = 0; i < shorterDim; i++) diagonals[i] = matrix[i][i];
         int end = searchFirstElement(diagonals, target);
         int start = searchLastElement(diagonals, target);
         System.out.println(start + "," + end);
-        if (start == -1 || end == -1) return false;
+        if (start == -1) return false;
         if (start == end) return true;
+        if (end == -1) end = matrix.length - 1;
         for (int i = start; i <= end; i++) {
             if (binarySearch(matrix[i], target) != -1) return true;
         }

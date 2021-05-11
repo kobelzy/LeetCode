@@ -1,6 +1,19 @@
 # 二分查找
+二分查找是一种非常高效的查找算法，高效到什么程度呢？我们来分析一下它的时间复杂度。
 
-## 模板1(标准解法)
+假设数据大小是 n，每次查找后数据都会缩小为原来的一半，也就是会除以 2。最坏情况下，直到查找区间被缩小为空，才停止。
+
+被查找区间的大小变化为：
+
+    n, n/2, n/4, n/8, ..., n/(2^k)
+
+可以看出来，这是一个等比数列。其中 n/(2^k)=1 时，k 的值就是总共缩小的次数。而每一次缩小操作只涉及两个数据的大小比较，所以，经过了 k 次区间缩小操作，时间复杂度就是 O(k)。通过 n/(2^k)=1，我们可以求得 k=log2n，所以时间复杂度就是 O(logn)。
+
+ 1. 循环退出条件是 low <= high，而不是 low < high；
+ 2. mid 的取值，可以是 mid = (low + high) / 2，但是如果 low 和 high 比较大的话，low + high 可能会溢出，所以这里写为 mid = (low + high) >>> 1；
+ 3. low 和 high 的更新分别为 low = mid + 1、high = mid - 1。
+
+## 1 标准解法
 
 
     int binarySearch(int[] nums, int target){
@@ -26,12 +39,110 @@
  - 33.搜索旋转排序数组
  - 69.x的平方根
  - 374.猜数字大小   
- 
- 
- 
-## 模板二 
 
-> 用于查找需要访问数组中当前索引及其值直接右令居索引的元素或条件。
+
+
+## 2 二分查找算法四种常见的变形问题
+
+ - 查找第一个值等于给定值的元素
+ - 查找最后一个值等于给定值的元素
+ - 查找第一个大于等于给定值的元素
+ - 查找最后一个小于等于给定值的元素
+
+### 2.1 查找第一个值等于给定值的元素
+
+    public static int search(int[] nums, int val) {
+    int n = nums.length;
+    int low = 0, high = n - 1;
+    while (low <= high) {
+        int mid = (low + high) >>> 1;
+        if (nums[mid] < val) {
+            low = mid + 1;
+        } else if (nums[mid] > val) {
+            high = mid - 1;
+        } else {
+            // 如果nums[mid]是第一个元素，或者nums[mid-1]不等于val
+            // 说明nums[mid]就是第一个值为给定值的元素
+            if (mid == 0 || nums[mid - 1] != val) {
+                return mid;
+            }
+            high = mid - 1;
+        }
+    }
+    return -1;
+    }
+
+
+
+2. 查找最后一个值等于给定值的元素
+
+   public static int search(int[] nums, int val) {
+      int n = nums.length;
+      int low = 0, high = n - 1;
+      while (low <= high) {
+         int mid = (low + high) >>> 1;
+         if (nums[mid] < val) {
+            low = mid + 1;
+         } else if (nums[mid] > val) {
+            high = mid - 1;
+         } else {
+         // 如果nums[mid]是最后一个元素，或者nums[mid+1]不等于val
+         // 说明nums[mid]就是最后一个值为给定值的元素
+            if (mid == n - 1 || nums[mid + 1] != val) {
+               return mid;
+            }
+            low = mid + 1;
+         }
+      }
+      return -1;
+   }
+
+3. 查找第一个大于等于给定值的元素
+
+   public static int search(int[] nums, int val) {
+      int low = 0, high = nums.length - 1;
+      while (low <= high) {
+      int mid = (low + high) >>> 1;
+         if (nums[mid] < val) {
+            low = mid + 1;
+         } else {
+         // 如果nums[mid]是第一个元素，或者nums[mid-1]小于val
+         // 说明nums[mid]就是第一个大于等于给定值的元素
+            if (mid == 0 || nums[mid - 1] < val) {
+               return mid;
+            }
+            high = mid - 1;
+         }
+      }
+      return -1;
+   }
+
+
+4. 查找最后一个小于等于给定值的元素
+   
+   public static int search(int[] nums, int val) {
+      int n = nums.length;
+      int low = 0, high = n - 1;
+         while (low <= high) {
+         int mid = (low + high) >>> 1;
+            if (nums[mid] > val) {
+               high = mid - 1;
+            } else {
+               // 如果nums[mid]是最后一个元素，或者nums[mid+1]大于val
+               // 说明nums[mid]就是最后一个小于等于给定值的元素
+               if (mid == n - 1 || nums[mid + 1] > val) {
+               return mid;
+            }
+            low = mid + 1;
+            }
+         }
+      return -1;
+   }
+ 
+
+
+## 3 模板二 :用于查找需要访问数组中当前索引及其值直接右令居索引的元素或条件。
+
 
 关键属性
 
@@ -76,9 +187,7 @@
  - 153.寻找旋转排序数组中的最小值
  - 162.寻找峰值
  
-## 模板三
- 
-> 用于搜索需要访问当前索引及其在数组中的直接左右邻居索引的元素
+## 4 模板三 用于搜索需要访问当前索引及其在数组中的直接左右邻居索引的元素
  
 关键属性
 

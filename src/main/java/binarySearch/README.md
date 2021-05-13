@@ -74,75 +74,76 @@
 
 
 
-2. 查找最后一个值等于给定值的元素
+### 2.2 查找最后一个值等于给定值的元素
 
-   public static int search(int[] nums, int val) {
-      int n = nums.length;
-      int low = 0, high = n - 1;
-      while (low <= high) {
-         int mid = (low + high) >>> 1;
-         if (nums[mid] < val) {
-            low = mid + 1;
-         } else if (nums[mid] > val) {
-            high = mid - 1;
-         } else {
-         // 如果nums[mid]是最后一个元素，或者nums[mid+1]不等于val
-         // 说明nums[mid]就是最后一个值为给定值的元素
-            if (mid == n - 1 || nums[mid + 1] != val) {
-               return mid;
-            }
-            low = mid + 1;
-         }
-      }
-      return -1;
-   }
+     public static int search(int[] nums, int val) {
+        int n = nums.length;
+        int low = 0, high = n - 1;
+        while (low <= high) {
+           int mid = (low + high) >>> 1;
+           if (nums[mid] < val) {
+              low = mid + 1;
+           } else if (nums[mid] > val) {
+              high = mid - 1;
+           } else {
+           // 如果nums[mid]是最后一个元素，或者nums[mid+1]不等于val
+           // 说明nums[mid]就是最后一个值为给定值的元素
+              if (mid == n - 1 || nums[mid + 1] != val) {
+                 return mid;
+              }
+              low = mid + 1;
+           }
+        }
+        return -1;
+     }
 
-3. 查找第一个大于等于给定值的元素
+### 2.3 查找第一个大于等于给定值的元素
 
-   public static int search(int[] nums, int val) {
-      int low = 0, high = nums.length - 1;
-      while (low <= high) {
-      int mid = (low + high) >>> 1;
-         if (nums[mid] < val) {
-            low = mid + 1;
-         } else {
-         // 如果nums[mid]是第一个元素，或者nums[mid-1]小于val
-         // 说明nums[mid]就是第一个大于等于给定值的元素
-            if (mid == 0 || nums[mid - 1] < val) {
-               return mid;
-            }
-            high = mid - 1;
-         }
-      }
-      return -1;
-   }
+    public static int search(int[] nums, int val) {
+       int low = 0, high = nums.length - 1;
+       while (low <= high) {
+       int mid = (low + high) >>> 1;
+          if (nums[mid] < val) {
+             low = mid + 1;
+          } else {
+          // 如果nums[mid]是第一个元素，或者nums[mid-1]小于val
+          // 说明nums[mid]就是第一个大于等于给定值的元素
+             if (mid == 0 || nums[mid - 1] < val) {
+                return mid;
+             }
+             high = mid - 1;
+          }
+       }
+       return -1;
+    }
 
 
-4. 查找最后一个小于等于给定值的元素
+### 2.4 查找最后一个小于等于给定值的元素
    
-   public static int search(int[] nums, int val) {
-      int n = nums.length;
-      int low = 0, high = n - 1;
-         while (low <= high) {
-         int mid = (low + high) >>> 1;
-            if (nums[mid] > val) {
-               high = mid - 1;
-            } else {
-               // 如果nums[mid]是最后一个元素，或者nums[mid+1]大于val
-               // 说明nums[mid]就是最后一个小于等于给定值的元素
-               if (mid == n - 1 || nums[mid + 1] > val) {
-               return mid;
-            }
-            low = mid + 1;
-            }
-         }
-      return -1;
-   }
+    public static int search(int[] nums, int val) {
+       int n = nums.length;
+       int low = 0, high = n - 1;
+          while (low <= high) {
+          int mid = (low + high) >>> 1;
+             if (nums[mid] > val) {
+                high = mid - 1;
+             } else {
+                // 如果nums[mid]是最后一个元素，或者nums[mid+1]大于val
+                // 说明nums[mid]就是最后一个小于等于给定值的元素
+                if (mid == n - 1 || nums[mid + 1] > val) {
+                return mid;
+             }
+             low = mid + 1;
+             }
+          }
+       return -1;
+    }
  
 
 
 ## 3 模板二 :用于查找需要访问数组中当前索引及其值直接右令居索引的元素或条件。
 
+通过nums[mid]不能直接得到结果，可能是其中一个解的情况下，使用该方法。
 
 关键属性
 
@@ -151,7 +152,7 @@
  - 使用元素的右邻居来确定是否满足条件，并决定是向左还是向右。
  - 保证查找空间在每一步中至少有 2 个元素。
  - 需要进行后处理。 当你剩下 1 个元素时，循环 / 递归结束。 需要评估剩余元素是否符合条件。
- 
+
 
 区分语法
 
@@ -195,8 +196,8 @@
  - 搜索条件需要访问元素的直接左右邻居。
  - 使用元素的邻居来确定它是向右还是向左。
  - 保证查找空间在每个步骤中至少有 3 个元素。
- - 需要进行后处理。 当剩下 2 个元素时，循环 / 递归结束。 需要评估其余元素是否符合条件。
- 
+ - 需要进行后处理。当剩下 2 个元素时，循环 / 递归结束。需要评估其余元素是否符合条件。
+
 
 区分语法
 

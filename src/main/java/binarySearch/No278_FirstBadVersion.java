@@ -18,7 +18,32 @@ public class No278_FirstBadVersion {
     public static void main(String[] args) {
         No278_FirstBadVersion t=new No278_FirstBadVersion();
         System.out.println(t.firstBadVersion(5));
+        System.out.println(t.firstBadVersion2(5));
     }
+    /**
+     * 标准解法
+     * @param n
+     * @return
+     */
+    public int firstBadVersion2(int n) {
+        int left=1,right=n;
+        while(left<=right){
+            int mid=(left+right)>>>1;
+            if(isBadVersion(mid)){
+                if(mid==0 || !isBadVersion(mid-1)) return mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 边界比较解法
+     * @param n
+     * @return
+     */
     public int firstBadVersion(int n) {
         int left=1,right=n;
         while(left<right){
@@ -31,7 +56,9 @@ public class No278_FirstBadVersion {
 //        return -1;
         return left;
     }
-    boolean isBadVersion(int version){
+
+
+        boolean isBadVersion(int version){
          return version>=4;
     }
 }

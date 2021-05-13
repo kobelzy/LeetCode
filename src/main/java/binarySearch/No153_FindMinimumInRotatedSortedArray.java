@@ -21,28 +21,40 @@ package binarySearch;
  */
 public class No153_FindMinimumInRotatedSortedArray {
 
+    /**
+     * 标准二分解法
+     *
+     * @param nums
+     * @return
+     */
+    public int findMin2(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return nums[0];
+        int left = 0, right = n - 1;
+        if (nums[right] > nums[left]) return nums[left];
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (mid + 1 < n && nums[mid] > nums[mid + 1]) return nums[mid + 1];
+            if (mid - 1 >= 0 && nums[mid - 1] > nums[mid]) return nums[mid];
+            if (nums[mid] > nums[0]) left = mid + 1;
+            else right = mid - 1;
+        }
+        return -1;
+    }
+
+    /**
+     * 左右比较方法
+     *
+     * @param nums
+     * @return
+     */
     public int findMin(int[] nums) {
         int left = 0, right = nums.length - 1;
         while (left < right) {
-            int middle =left+((right-left)>>1);
+            int middle = left + ((right - left) >> 1);
             if (nums[middle] < nums[right]) right = middle;
-            else  left = middle + 1;
-            }
-        return nums[left];
-    }
-
-
-    public int findMin2(int[] nums) {
-        if(nums.length==1) return nums[0];
-        int left=0,right=nums.length-1;
-        if(nums[right]>nums[left]) return nums[left];
-        while(left<=right){
-            int mid=left+((right-left)>>1);
-            if(nums[mid]>nums[mid+1])return nums[mid+1];
-            if(nums[mid-1]>nums[mid]) return nums[mid];
-            if(nums[mid]>nums[0])left=mid+1;
-            else right=mid-1;
+            else left = middle + 1;
         }
-        return -1;
+        return nums[left];
     }
 }

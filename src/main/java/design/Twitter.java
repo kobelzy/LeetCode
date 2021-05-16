@@ -1,4 +1,4 @@
-package medium;
+package design;
 
 import java.util.*;
 

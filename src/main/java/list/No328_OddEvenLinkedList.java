@@ -52,7 +52,7 @@ public class No328_OddEvenLinkedList {
                 isOdd=!isOdd;
                 current=current.next;
             }
-            even.next=null;
+            even.next=null;//注意，这里的even.next=下一个odd，合并两个链表之后可能造成环，需要置空
             odd.next=evenHead.next;
             return oddHead.next;
         }

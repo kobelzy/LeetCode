@@ -47,6 +47,27 @@ public class No19_RemoveNthNodeFromEndOfListJava {
 
     }
 
+    /**
+     * 这个更好理解一些
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode removeNthFromEnd2(ListNode head,int k){
+        ListNode preHead=new ListNode(-1);
+        preHead.next=head;
+        ListNode slow=preHead,fast=preHead;
+        for (int i = 0; i < k; i++) {//走过k个，
+            fast=fast.next;
+        }
+        //pre,a,b,c,d,null
+        while(fast.next!=null){//fast指向null,slow指向k的前一个
+            fast=fast.next;
+            slow=slow.next;
+        }
+        slow.next=slow.next.next;
+        return preHead.next;
+    }
     public static void main(String[] args) {
 //    ListNode tail=new ListNode(5);
 //    ListNode tail2=new ListNode(4,tail);

@@ -23,7 +23,7 @@ public class No2_AddTwoNumbersJava {
         while(l1!=null || l2 !=null || flag!=0){
             int sum=(l1==null ?0:l1.val)+(l2==null?0:l2.val)+flag;
             flag=sum/10;
-            ListNode next=new ListNode(sum);
+            ListNode next=new ListNode(sum%10);
             cur.next=next;
             cur=cur.next;
             l1=l1==null?null:l1.next;

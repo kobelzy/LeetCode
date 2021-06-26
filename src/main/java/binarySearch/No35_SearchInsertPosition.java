@@ -1,4 +1,4 @@
-package array;
+package binarySearch;
 
 /**
  * 35. 搜索插入位置
@@ -19,10 +19,17 @@ package array;
  */
 public class No35_SearchInsertPosition {
 
-
+    public static void main(String[] args) {
+        No35_SearchInsertPosition t=new No35_SearchInsertPosition();
+        int[] nums={1,3,5,6};
+        System.out.println(t.searchInsert(nums,5));
+        System.out.println(t.searchInsert(nums,2));
+        System.out.println(t.searchInsert(nums,7));
+        System.out.println(t.searchInsert(nums,0));
+    }
     /**
      * 二分查找
-     *
+     * 不能使用求解第一个大雨等于target的方式求解，边界辉返回-1
      * @param nums
      * @param target
      * @return
@@ -32,8 +39,7 @@ public class No35_SearchInsertPosition {
         int max = nums.length - 1;
         int res = nums.length;
         while (min <= max) {
-            int mid = min + ((max - min) >> 2);
-            int tmp = nums[mid];
+            int mid =(min+max)>>>1;
             if (target <= nums[mid]) {
                 res = mid;
                 max = mid - 1;
@@ -42,6 +48,8 @@ public class No35_SearchInsertPosition {
         return res;
     }
 
+
+
     /**
      * 暴力求解
      *
@@ -49,7 +57,7 @@ public class No35_SearchInsertPosition {
      * @param target
      * @return
      */
-    public int searchInsert2(int[] nums, int target) {
+    public int searchInsert3(int[] nums, int target) {
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] < target) {
                 if (i + 1 < nums.length && nums[i + 1] >= target) return i + 1;

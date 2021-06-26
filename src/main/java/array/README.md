@@ -13,7 +13,10 @@
                 s[i], s[j] = s[j], s[i]
                 i += 1
                 j -= 1
-                
+
+题目：
+
+ - 167. 两数之和 II - 输入有序数组
 ## 快慢指针技巧
 
     def removeElement(self, nums: List[int], val: int) -> int:
@@ -24,3 +27,12 @@
                 nums[slow] = nums[fast]
                 slow += 1
         return slow    
+
+题目：
+
+ - 209. 长度最小的子数组
+
+
+快慢指针可以用于求区间值这样的场景，外层循环使用一个for循环作为快指针
+
+内部使用一个全局的slow当作慢指针，每次根据条件选择是否进行slow+=1；

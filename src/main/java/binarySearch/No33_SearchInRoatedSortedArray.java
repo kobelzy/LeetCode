@@ -41,6 +41,10 @@ public class No33_SearchInRoatedSortedArray {
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] < last) revertIndex = i;
             last = nums[i];
+//            if(nums[i]<nums[0]){
+//                revertIndex=i;
+//                break;
+//            }
         }
         int left = 0;
         int right =revertIndex==0?len-1: revertIndex - 1;
@@ -56,4 +60,32 @@ public class No33_SearchInRoatedSortedArray {
         }
         return -1;
     }
+
+
+    public int search2(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
+        int len = nums.length;
+        if (len == 1) return nums[0] == target ? 0 : -1;
+        int flag = nums[0];
+        int revertIndex = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] < flag) revertIndex = i;
+            flag = nums[i];
+        }
+        int left = 0;
+        int right =revertIndex==0?len-1: revertIndex - 1;
+        if(target<nums[0]){
+            left=revertIndex;
+            right=len-1;
+        }
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (nums[mid] == target) return mid;
+            else if ( nums[mid]>target) right=mid-1;
+            else left=mid+1;
+        }
+        return -1;
+    }
+
+
 }

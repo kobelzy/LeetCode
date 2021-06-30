@@ -22,9 +22,9 @@ import java.util.Map;
  * big.length <= 100000
  * 1 <= small.length <= 100000
  */
-public class IQ17_18_SortestSupersequence {
+public class IQ1718_SortestSupersequence {
     public static void main(String[] args) {
-        IQ17_18_SortestSupersequence t = new IQ17_18_SortestSupersequence();
+        IQ1718_SortestSupersequence t = new IQ1718_SortestSupersequence();
         int[] big = new int[]{7, 5, 9, 0, 2, 1, 5, 5, 7, 9, 1, 1, 5, 8, 8, 9, 7};
         int[] small = new int[]{1, 5,5, 9};
         System.out.println(Arrays.toString(t.shortestSeq(big, small)));

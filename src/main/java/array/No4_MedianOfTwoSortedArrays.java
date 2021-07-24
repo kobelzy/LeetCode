@@ -1,7 +1,5 @@
 package array;
 
-import java.util.Arrays;
-
 /**
  * 4. 寻找两个正序数组的中位数
  * 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
@@ -42,6 +40,13 @@ public class No4_MedianOfTwoSortedArrays {
         System.out.println(t.findMedianSortedArrays2(nums1, nums2));
     }
 
+    /**
+     * 数组缓存
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int len1 = nums1.length, len2 = nums2.length;
         int len = nums1.length + nums2.length;
@@ -58,34 +63,36 @@ public class No4_MedianOfTwoSortedArrays {
         else return merged[merged.length - 1];
     }
 
+    /**
+     * 双指针,优先掌握
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
     public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
         int len1 = nums1.length, len2 = nums2.length;
-        int len = nums1.length + nums2.length;
+        int len = len1 + len2;
         int mid = (len >> 1) + 1;
         int i1 = 0, i2 = 0, t = 0;
         int left = -1, right = -1;
         while (i1 < len1 && i2 < len2 && t < mid) {
+            left = right;
+            right = nums1[i1] <= nums2[i2] ? nums1[i1++] : nums2[i2++];
             t++;
-            if (nums1[i1] <= nums2[i2]) {
-                left = right;
-                right = nums1[i1++];
-            } else {
-                left = right;
-                right = nums2[i2++];
-            }
         }
 
-        while (i1 < len1 && t < mid){
+        while (i1 < len1 && t < mid) {
             left = right;
             right = nums1[i1++];
             t++;
         }
-        while (i2 < len2 && t <mid){
+        while (i2 < len2 && t < mid) {
             left = right;
             right = nums2[i2++];
             t++;
         }
-        if ((len & 1) == 0) return (left+right) / 2.0;
+        if ((len & 1) == 0) return (left + right) / 2.0;
         else return right;
     }
 
